@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.35625" />
+        <entry key="empower/src/main/res/drawable/indicator_selected_state.xml" value="0.157" />
+        <entry key="empower/src/main/res/layout/fragment_empower.xml" value="0.35625" />
+        <entry key="empower/src/main/res/layout/item_ads.xml" value="0.328125" />
+        <entry key="empower/src/main/res/layout/item_banner.xml" value="0.35625" />
+        <entry key="empower/src/main/res/layout/item_base.xml" value="0.2734375" />
+        <entry key="empower/src/main/res/layout/item_basic.xml" value="0.31979166666666664" />
+        <entry key="empower/src/main/res/layout/item_expose.xml" value="0.35625" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
