@@ -20,10 +20,10 @@ class ContentViewModel : ViewModel() {
 
     fun listContent(power: Power) {
         viewModelScope.launch {
-            withContext(Dispatchers.IO) {
+            withContext(Dispatchers.Main) {
                 when (power) {
                     is Power.Banner -> {
-                        _content.postValue(
+                        _content.value = (
                             listOf(
                                 Content(
                                     "banner",
@@ -89,7 +89,7 @@ class ContentViewModel : ViewModel() {
                         )
                     }
                     is Power.Basic -> {
-                        _content.postValue(
+                        _content.value = (
                             listOf(
                                 Content(
                                     "basic",
@@ -146,7 +146,7 @@ class ContentViewModel : ViewModel() {
                         )
                     }
                     is Power.Expose -> {
-                        _content.postValue(
+                        _content.value = (
                             listOf(
                                 Content(
                                     "expose",
@@ -203,7 +203,7 @@ class ContentViewModel : ViewModel() {
                         )
                     }
                     is Power.Ads -> {
-                        _content.postValue(
+                        _content.value = (
                             listOf(
                                 Content(
                                     "ads",
@@ -237,63 +237,6 @@ class ContentViewModel : ViewModel() {
                                 ),
                                 Content(
                                     "ads",
-                                    "Iron Man",
-                                    "test title",
-                                    "test description",
-                                    "https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg",
-                                    listOf(
-                                        Operator(
-                                            "button",
-                                            "open detail",
-                                            "detail screen",
-                                            "learn more"
-                                        ),
-                                        Operator(
-                                            "link",
-                                            "open detail",
-                                            "detail screen",
-                                            "go there"
-                                        )
-                                    )
-                                )
-                            )
-                        )
-                    }
-                    else -> {
-                        _content.postValue(
-                            listOf(
-                                Content(
-                                    "basic",
-                                    "Iron Man",
-                                    "test title",
-                                    "test description",
-                                    "https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg",
-                                    listOf(
-                                        Operator(
-                                            "button",
-                                            "open detail",
-                                            "detail screen",
-                                            "learn more"
-                                        )
-                                    )
-                                ),
-                                Content(
-                                    "basic",
-                                    "Iron Man",
-                                    "test title",
-                                    "test description",
-                                    "https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg",
-                                    listOf(
-                                        Operator(
-                                            "link",
-                                            "open detail",
-                                            "detail screen",
-                                            "learn more"
-                                        )
-                                    )
-                                ),
-                                Content(
-                                    "basic",
                                     "Iron Man",
                                     "test title",
                                     "test description",
