@@ -1,22 +1,20 @@
 package empower.ca.adapter
 
-import android.util.TypedValue
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import empower.ca.R
-import empower.ca.databinding.ItemBannerBinding
 import empower.ca.databinding.ItemBaseBinding
 import empower.ca.model.Content
 import empower.ca.sealed.Power
+import empower.ca.util.loadData
 
+const val EMPOWER_VIEWTYPE_BASIC = "basic"
+const val EMPOWER_VIEWTYPE_BANNER = "banner"
+const val EMPOWER_VIEWTYPE_EXPOSE = "expose"
+const val EMPOWER_VIEWTYPE_ADS = "ads"
 
 class EmpowerAdapter(private val power: Power, private val clickListener: ContentListener) : ListAdapter<Content,
         EmpowerAdapter.EmpowerViewHolder>(ContentCallBack()){
@@ -39,126 +37,34 @@ class EmpowerAdapter(private val power: Power, private val clickListener: Conten
 
             when(power){
                 is Power.Basic -> {
-                    if(content.contentType == "basic") {
+                    if(content.contentType == EMPOWER_VIEWTYPE_BASIC) {
                         val viewBase = binding.layItemBasic
                         viewBase.apply {
-                            cardBasic.visibility = View.VISIBLE
-                            header.text = content.header
-                            title.text = content.title
-                            description.text = content.description
-                            buttonOperator.visibility = View.GONE
-                            linkOperator.visibility = View.GONE
-
-                            for(op in content.operators){
-                                if(op.type == "button"){
-                                    buttonOperator.text = op.text
-                                    buttonOperator.visibility = View.VISIBLE
-                                }
-                                if(op.type == "link"){
-                                    linkOperator.text = op.text
-                                    linkOperator.visibility = View.VISIBLE
-                                }
-                            }
-
-                            Glide.with(itemView)
-                                .load(content.image)
-                                .centerCrop()
-                                .transition(DrawableTransitionOptions.withCrossFade())
-                                .error(R.drawable.marvel)
-                                .into(image)
+                            loadData(this, content, itemView)
                         }
                     }
                 }
                 is Power.Banner -> {
-                    if(content.contentType == "banner") {
+                    if(content.contentType == EMPOWER_VIEWTYPE_BANNER) {
                         val viewBase = binding.layItemBanner
                         viewBase.apply {
-                            cardBanner.visibility = View.VISIBLE
-                            header.text = content.header
-                            title.text = content.title
-                            description.text = content.description
-                            buttonOperator.visibility = View.GONE
-                            linkOperator.visibility = View.GONE
-
-                            for(op in content.operators){
-                                if(op.type == "button"){
-                                    buttonOperator.text = op.text
-                                    buttonOperator.visibility = View.VISIBLE
-                                }
-                                if(op.type == "link"){
-                                    linkOperator.text = op.text
-                                    linkOperator.visibility = View.VISIBLE
-                                }
-                            }
-
-                            Glide.with(itemView)
-                                .load(content.image)
-                                .centerCrop()
-                                .transition(DrawableTransitionOptions.withCrossFade())
-                                .error(R.drawable.marvel)
-                                .into(image)
+                            loadData(this, content, itemView)
                         }
                     }
                 }
                 is Power.Expose -> {
-                    if(content.contentType == "expose") {
+                    if(content.contentType == EMPOWER_VIEWTYPE_EXPOSE) {
                         val viewBase = binding.layItemExpose
                         viewBase.apply {
-                            cardExpose.visibility = View.VISIBLE
-                            header.text = content.header
-                            title.text = content.title
-                            description.text = content.description
-                            buttonOperator.visibility = View.GONE
-                            linkOperator.visibility = View.GONE
-
-                            for(op in content.operators){
-                                if(op.type == "button"){
-                                    buttonOperator.text = op.text
-                                    buttonOperator.visibility = View.VISIBLE
-                                }
-                                if(op.type == "link"){
-                                    linkOperator.text = op.text
-                                    linkOperator.visibility = View.VISIBLE
-                                }
-                            }
-
-                            Glide.with(itemView)
-                                .load(content.image)
-                                .centerCrop()
-                                .transition(DrawableTransitionOptions.withCrossFade())
-                                .error(R.drawable.marvel)
-                                .into(image)
+                            loadData(this, content, itemView)
                         }
                     }
                 }
                 is Power.Ads -> {
-                    if(content.contentType == "ads") {
+                    if(content.contentType == EMPOWER_VIEWTYPE_ADS) {
                         val viewBase = binding.layItemAds
                         viewBase.apply {
-                            cardAds.visibility = View.VISIBLE
-                            header.text = content.header
-                            title.text = content.title
-                            description.text = content.description
-                            buttonOperator.visibility = View.GONE
-                            linkOperator.visibility = View.GONE
-
-                            for(op in content.operators){
-                                if(op.type == "button"){
-                                    buttonOperator.text = op.text
-                                    buttonOperator.visibility = View.VISIBLE
-                                }
-                                if(op.type == "link"){
-                                    linkOperator.text = op.text
-                                    linkOperator.visibility = View.VISIBLE
-                                }
-                            }
-
-                            Glide.with(itemView)
-                                .load(content.image)
-                                .centerCrop()
-                                .transition(DrawableTransitionOptions.withCrossFade())
-                                .error(R.drawable.marvel)
-                                .into(image)
+                            loadData(this, content, itemView)
                         }
                     }
                 }
