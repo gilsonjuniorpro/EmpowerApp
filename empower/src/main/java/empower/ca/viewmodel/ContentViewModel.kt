@@ -263,12 +263,4 @@ class ContentViewModel : ViewModel() {
             }
         }
     }
-
-    private fun getPagingConfig() = PagingConfig(
-        pageSize = PAGE_SIZE
-    )
-
-    companion object {
-        const val PAGE_SIZE = 20
-    }
 }
