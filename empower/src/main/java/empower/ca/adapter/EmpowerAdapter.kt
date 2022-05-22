@@ -16,7 +16,7 @@ const val EMPOWER_VIEWTYPE_BANNER = "banner"
 const val EMPOWER_VIEWTYPE_EXPOSE = "expose"
 const val EMPOWER_VIEWTYPE_ADS = "ads"
 
-class EmpowerAdapter(private val power: Power, private val clickListener: ContentListener) : ListAdapter<Content,
+class EmpowerAdapter(private val power: Power) : ListAdapter<Content,
         EmpowerAdapter.EmpowerViewHolder>(ContentCallBack()){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EmpowerViewHolder {
@@ -24,16 +24,12 @@ class EmpowerAdapter(private val power: Power, private val clickListener: Conten
     }
 
     override fun onBindViewHolder(holder: EmpowerViewHolder, position: Int) {
-        holder.bind(power, clickListener, getItem(position))
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return super.getItemViewType(position)
+        holder.bind(power, getItem(position))
     }
 
     class EmpowerViewHolder private constructor(private val binding: ItemBaseBinding) :
         RecyclerView.ViewHolder(binding.root){
-        fun bind(power: Power, clickListener: ContentListener, content: Content){
+        fun bind(power: Power, content: Content){
 
             when(power){
                 is Power.Basic -> {
@@ -99,8 +95,4 @@ class ContentCallBack : DiffUtil.ItemCallback<Content>(){
     override fun areContentsTheSame(oldItem: Content, newItem: Content): Boolean {
         return oldItem.header == newItem.header
     }
-}
-
-class ContentListener(val clickListener: (content: Content) -> Unit) {
-    fun onClick(content: Content) = clickListener(content)
 }

@@ -1,6 +1,7 @@
 package empower.ca.util
 
 import android.view.View
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import empower.ca.R
@@ -36,6 +37,13 @@ fun loadData(view: ItemBasicBinding, content: Content, itemView: View) {
         .transition(DrawableTransitionOptions.withCrossFade())
         .error(R.drawable.marvel)
         .into(view.image)
+
+    view.buttonOperator.setOnClickListener {
+        Toast.makeText(view.cardBasic.context, "button", Toast.LENGTH_LONG).show()
+    }
+    view.linkOperator.setOnClickListener {
+        Toast.makeText(view.cardBasic.context, "link", Toast.LENGTH_LONG).show()
+    }
 }
 
 fun loadData(view: ItemBannerBinding, content: Content, itemView: View) {
@@ -63,6 +71,13 @@ fun loadData(view: ItemBannerBinding, content: Content, itemView: View) {
         .transition(DrawableTransitionOptions.withCrossFade())
         .error(R.drawable.marvel)
         .into(view.image)
+
+    view.buttonOperator.setOnClickListener {
+        Toast.makeText(view.cardBanner.context, "button", Toast.LENGTH_LONG).show()
+    }
+    view.linkOperator.setOnClickListener {
+        Toast.makeText(view.cardBanner.context, "link", Toast.LENGTH_LONG).show()
+    }
 }
 
 fun loadData(view: ItemExposeBinding, content: Content, itemView: View) {
@@ -90,6 +105,13 @@ fun loadData(view: ItemExposeBinding, content: Content, itemView: View) {
         .transition(DrawableTransitionOptions.withCrossFade())
         .error(R.drawable.marvel)
         .into(view.image)
+
+    view.buttonOperator.setOnClickListener {
+        Toast.makeText(view.cardExpose.context, "button", Toast.LENGTH_LONG).show()
+    }
+    view.linkOperator.setOnClickListener {
+        Toast.makeText(view.cardExpose.context, "link", Toast.LENGTH_LONG).show()
+    }
 }
 
 fun loadData(view: ItemAdsBinding, content: Content, itemView: View) {
@@ -117,4 +139,11 @@ fun loadData(view: ItemAdsBinding, content: Content, itemView: View) {
         .transition(DrawableTransitionOptions.withCrossFade())
         .error(R.drawable.marvel)
         .into(view.image)
+
+    view.buttonOperator.setOnClickListener {
+        Toast.makeText(view.cardAds.context, "button", Toast.LENGTH_LONG).show()
+    }
+    view.linkOperator.setOnClickListener {
+        Toast.makeText(view.cardAds.context, "link", Toast.LENGTH_LONG).show()
+    }
 }

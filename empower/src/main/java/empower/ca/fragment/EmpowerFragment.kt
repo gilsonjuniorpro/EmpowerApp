@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
-import empower.ca.adapter.ContentListener
 import empower.ca.adapter.EmpowerAdapter
 import empower.ca.databinding.FragmentEmpowerBinding
 import empower.ca.model.Content
@@ -69,9 +68,7 @@ class EmpowerFragment : Fragment() {
     }
 
     private fun initAdapter(power: Power) {
-        empowerAdapter = EmpowerAdapter(power, ContentListener { content ->
-            openDetail(content)
-        })
+        empowerAdapter = EmpowerAdapter(power)
 
         with(binding.feedRecycler) {
             layoutManager = linearLayoutManager
@@ -100,10 +97,6 @@ class EmpowerFragment : Fragment() {
                 }
             }
         }
-    }
-
-    private fun openDetail(content: Content) {
-
     }
 
     companion object {
