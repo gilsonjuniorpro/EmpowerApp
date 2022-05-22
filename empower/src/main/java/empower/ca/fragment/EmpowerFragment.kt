@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import empower.ca.adapter.EmpowerAdapter
 import empower.ca.databinding.FragmentEmpowerBinding
-import empower.ca.model.Content
 import empower.ca.sealed.Option
 import empower.ca.sealed.Power
 import empower.ca.viewmodel.ContentViewModel
