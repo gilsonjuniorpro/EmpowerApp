@@ -1,5 +1,6 @@
 package empowerapp.ca
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,10 +25,15 @@ import empower.ca.core.Empower
 import empower.ca.sealed.Option
 import empower.ca.sealed.Power
 import empowerapp.ca.ui.theme.EmpowerTheme
+import org.w3c.dom.Text
 
 private const val ADS = "ads"
+private const val BASIC = "basic"
+private const val BANNER = "banner"
+private const val EXPOSE = "expose"
 
 class AppActivity : AppCompatActivity() {
+    @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -51,17 +57,20 @@ class AppActivity : AppCompatActivity() {
                         .fillMaxHeight()
                         .fillMaxWidth(),
                     factory = { context ->
-                        View.inflate(context, R.layout.activity_main, null)
+                        //View.inflate(context, R.layout.activity_main, null)
+                        FrameLayout(context).apply {
+                            id = 9999999
+                        }
                     },
                     update = {
                         (context as AppCompatActivity).let {
                             val transaction = context.supportFragmentManager.beginTransaction()
                             Empower.fragment(
                                 applicationContext,
-                                Option.Container("This is the $ADS", "just go"),
-                                Power.Banner
+                                Option.Container(title = "This is the $BASIC", linkText = "just go"),
+                                Power.Basic
                             ).let {
-                                transaction.replace(R.id.layout_base, it)
+                                transaction.replace(9999999, it)
                             }
                             transaction.commit()
                         }
@@ -72,16 +81,5 @@ class AppActivity : AppCompatActivity() {
     }
 }
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    EmpowerTheme {
-        Greeting("Android")
-    }
-}
 
