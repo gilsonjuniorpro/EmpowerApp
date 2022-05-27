@@ -2,4 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="empower.ca">
 
+    <application>
+        <activity
+            android:name=".ui.DetailActivity"
+            android:exported="false"
+            android:theme="@style/EmpowerActivity.EmpowerAppBarActivity"/>
+    </application>
+
 </manifest>

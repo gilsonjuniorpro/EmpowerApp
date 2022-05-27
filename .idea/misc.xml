@@ -5,7 +5,10 @@
       <map>
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/activity_starter.xml" value="0.35625" />
+        <entry key="empower/src/main/res/drawable/btn_error.xml" value="0.137" />
         <entry key="empower/src/main/res/drawable/indicator_selected_state.xml" value="0.157" />
+        <entry key="empower/src/main/res/layout/activity_detail.xml" value="0.35625" />
+        <entry key="empower/src/main/res/layout/detail_fragment.xml" value="0.35625" />
         <entry key="empower/src/main/res/layout/fragment_empower.xml" value="0.35625" />
         <entry key="empower/src/main/res/layout/item_ads.xml" value="0.328125" />
         <entry key="empower/src/main/res/layout/item_banner.xml" value="0.35625" />

@@ -5,5 +5,5 @@
     <dimen name="banner_card_height">140dp</dimen>
     <dimen name="banner_card_radius">16dp</dimen>
     <dimen name="banner_card_elevation">3dp</dimen>
-    <dimen name="indicator_dot_size">6dp</dimen>
+    <dimen name="indicator_dot_size">4dp</dimen>
 </resources>

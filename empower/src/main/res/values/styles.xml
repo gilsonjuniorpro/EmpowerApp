@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="EmpowerTheme" parent="Theme.AppCompat.DayNight" />
+
+    <style name="EmpowerActivity" parent="EmpowerTheme" />
+
+    <!-- App Bar Activity -->
+    <style name="EmpowerActivity.EmpowerAppBarActivity" parent="EmpowerActivity">
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <!-- App Bar Activity Toolbar -->
+    <style name="EmpowerActivity.EmpowerAppBarActivity.Toolbar" parent="EmpowerActivity.EmpowerAppBarActivity">
+        <item name="android:layout_height">?android:attr/actionBarSize</item>
+        <item name="android:background">@color/blue</item>
+        <!-- If you overwrite this then you need to add below two properties -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <!-- Customize color of back arrow -->
+        <item name="colorControlNormal">@color/white</item>
+    </style>
+
+</resources>

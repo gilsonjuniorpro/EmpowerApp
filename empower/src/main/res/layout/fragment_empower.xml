@@ -55,7 +55,7 @@
         android:id="@+id/indicator_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="12dp"
         android:layout_gravity="center_vertical"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/feed_recycler"

@@ -1,5 +1,8 @@
 package empower.ca.util
 
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.bumptech.glide.Glide
@@ -10,6 +13,7 @@ import empower.ca.databinding.ItemBannerBinding
 import empower.ca.databinding.ItemBasicBinding
 import empower.ca.databinding.ItemExposeBinding
 import empower.ca.model.Content
+import empower.ca.ui.DetailActivity
 
 
 fun loadData(view: ItemBasicBinding, content: Content, itemView: View) {
@@ -39,11 +43,26 @@ fun loadData(view: ItemBasicBinding, content: Content, itemView: View) {
         .into(view.image)
 
     view.buttonOperator.setOnClickListener {
-        Toast.makeText(view.cardBasic.context, "button", Toast.LENGTH_LONG).show()
+        openDetail(view.cardBasic.context, "button")
     }
     view.linkOperator.setOnClickListener {
-        Toast.makeText(view.cardBasic.context, "link", Toast.LENGTH_LONG).show()
+        openDetail(view.cardBasic.context, "link")
     }
+}
+
+private fun openDetail(context: Context, itemCliked: String) {
+    Toast.makeText(context, "$itemCliked", Toast.LENGTH_LONG).show()
+    val intent = Intent(context, DetailActivity::class.java)
+    context.startActivity(intent)
+    /*val bundle = Bundle()
+    bundle.putParcelable(
+        ButtonCardDetailActivity.EXTRA_BUTTONCARD_DETAILS
+    )
+    bundle.putParcelable(
+        ButtonCardDetailActivity.EXTRA_USER_ACTION_HANDLER,
+        this
+    )
+    intent.openActivity(ButtonCardDetailActivity::class.java, bundle)*/
 }
 
 fun loadData(view: ItemBannerBinding, content: Content, itemView: View) {
@@ -73,10 +92,10 @@ fun loadData(view: ItemBannerBinding, content: Content, itemView: View) {
         .into(view.image)
 
     view.buttonOperator.setOnClickListener {
-        Toast.makeText(view.cardBanner.context, "button", Toast.LENGTH_LONG).show()
+        openDetail(view.cardBanner.context, "button")
     }
     view.linkOperator.setOnClickListener {
-        Toast.makeText(view.cardBanner.context, "link", Toast.LENGTH_LONG).show()
+        openDetail(view.cardBanner.context, "link")
     }
 }
 
@@ -107,10 +126,10 @@ fun loadData(view: ItemExposeBinding, content: Content, itemView: View) {
         .into(view.image)
 
     view.buttonOperator.setOnClickListener {
-        Toast.makeText(view.cardExpose.context, "button", Toast.LENGTH_LONG).show()
+        openDetail(view.cardExpose.context, "button")
     }
     view.linkOperator.setOnClickListener {
-        Toast.makeText(view.cardExpose.context, "link", Toast.LENGTH_LONG).show()
+        openDetail(view.cardExpose.context, "link")
     }
 }
 
@@ -141,9 +160,9 @@ fun loadData(view: ItemAdsBinding, content: Content, itemView: View) {
         .into(view.image)
 
     view.buttonOperator.setOnClickListener {
-        Toast.makeText(view.cardAds.context, "button", Toast.LENGTH_LONG).show()
+        openDetail(view.cardAds.context, "button")
     }
     view.linkOperator.setOnClickListener {
-        Toast.makeText(view.cardAds.context, "link", Toast.LENGTH_LONG).show()
+        openDetail(view.cardAds.context, "link")
     }
 }
