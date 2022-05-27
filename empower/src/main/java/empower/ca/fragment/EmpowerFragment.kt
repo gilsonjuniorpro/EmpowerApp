@@ -43,11 +43,18 @@ class EmpowerFragment : Fragment() {
             instanceHashCode = arguments?.getInt(INSTANCE_HASH_CODE) ?: 0
 
             val option = arguments?.getParcelable(EMPOWER_OPTION_OBJECT) ?: Option.Container()
-            option.let {
-                binding.containerTitle.text = option.title
-                binding.containerAction.text = option.linkText
-                binding.containerTitle.visibility = View.VISIBLE
-                binding.containerAction.visibility = View.VISIBLE
+            if(option.title != null || option.linkText != null){
+                option.title?.let {
+                    binding.containerTitle.text = option.title
+                    binding.containerTitle.visibility = View.VISIBLE
+                }
+
+                option.linkText?.let {
+                    binding.containerAction.text = option.linkText
+                    binding.containerAction.visibility = View.VISIBLE
+                }
+            }else{
+                binding.titleLinkContainer.visibility = View.GONE
             }
 
             val power = arguments?.getParcelable<Power>(EMPOWER_POWER_OBJECT) ?: Power.Basic
@@ -75,8 +82,10 @@ class EmpowerFragment : Fragment() {
             adapter = empowerAdapter
             smoothScrollToPosition(0)
 
-            val pager = PagerSnapHelper()
-            pager.attachToRecyclerView(this)
+            if (power is Power.Banner) {
+                val pager = PagerSnapHelper()
+                pager.attachToRecyclerView(this)
+            }
         }
 
         viewModel.content.observe(viewLifecycleOwner) { list ->
