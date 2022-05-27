@@ -43,14 +43,18 @@ class EmpowerFragment : Fragment() {
             instanceHashCode = arguments?.getInt(INSTANCE_HASH_CODE) ?: 0
 
             val option = arguments?.getParcelable(EMPOWER_OPTION_OBJECT) ?: Option.Container()
-            option.title?.let {
-                binding.containerTitle.text = option.title
-                binding.containerTitle.visibility = View.VISIBLE
-            }
+            if(option.title != null || option.linkText != null){
+                option.title?.let {
+                    binding.containerTitle.text = option.title
+                    binding.containerTitle.visibility = View.VISIBLE
+                }
 
-            option.linkText?.let {
-                binding.containerAction.text = option.linkText
-                binding.containerAction.visibility = View.VISIBLE
+                option.linkText?.let {
+                    binding.containerAction.text = option.linkText
+                    binding.containerAction.visibility = View.VISIBLE
+                }
+            }else{
+                binding.titleLinkContainer.visibility = View.GONE
             }
 
             val power = arguments?.getParcelable<Power>(EMPOWER_POWER_OBJECT) ?: Power.Basic
