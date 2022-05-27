@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EmpowerApp">
         <activity
-            android:name=".AppActivity"
+            android:name=".StarterActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,6 +21,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".AppActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>
