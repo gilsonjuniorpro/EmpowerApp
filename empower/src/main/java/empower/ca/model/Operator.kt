@@ -1,8 +1,12 @@
 package empower.ca.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Operator(
-    val type: String, // button or link
-    val actionType: String, // open detail or open link
-    val actionValue: String, // url link or detail screen
-    val text: String
-)
+    var type: String, // button or link
+    var actionType: String, // open detail or open link
+    var actionValue: String, // url link or detail screen
+    var text: String
+): Parcelable

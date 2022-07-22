@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import empower.ca.adapter.EmpowerAdapter
 import empower.ca.databinding.FragmentEmpowerBinding
+import empower.ca.model.Content
 import empower.ca.sealed.Option
 import empower.ca.sealed.Power
 import empower.ca.viewmodel.ContentViewModel
@@ -21,6 +22,7 @@ import empower.ca.viewmodel.ContentViewModel
  */
 class EmpowerFragment : Fragment() {
 
+    private lateinit var power: Power
     private var instanceHashCode: Int = 0
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var empowerAdapter: EmpowerAdapter
@@ -43,7 +45,7 @@ class EmpowerFragment : Fragment() {
             instanceHashCode = arguments?.getInt(INSTANCE_HASH_CODE) ?: 0
 
             val option = arguments?.getParcelable(EMPOWER_OPTION_OBJECT) ?: Option.Container()
-            if(option.title != null || option.linkText != null){
+            if (option.title != null || option.linkText != null) {
                 option.title?.let {
                     binding.containerTitle.text = option.title
                     binding.containerTitle.visibility = View.VISIBLE
@@ -53,11 +55,11 @@ class EmpowerFragment : Fragment() {
                     binding.containerAction.text = option.linkText
                     binding.containerAction.visibility = View.VISIBLE
                 }
-            }else{
+            } else {
                 binding.titleLinkContainer.visibility = View.GONE
             }
 
-            val power = arguments?.getParcelable<Power>(EMPOWER_POWER_OBJECT) ?: Power.Basic
+            power = arguments?.getParcelable<Power>(EMPOWER_POWER_OBJECT) ?: Power.Basic
 
             linearLayoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -67,13 +69,23 @@ class EmpowerFragment : Fragment() {
                     LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             }
 
-            initAdapter(power)
+            val contentList: ArrayList<Content>? =
+                arguments?.getParcelableArrayList(EMPOWER_CONTENT_OBJECT)
 
-            viewModel.listContent(power)
+            initAdapter()
+
+            if (contentList?.size == 0) {
+                loadInfo()
+                viewModel.listContent(power)
+            } else {
+                empowerAdapter.submitList(contentList)
+
+                handleData(contentList!!)
+            }
         }
     }
 
-    private fun initAdapter(power: Power) {
+    private fun initAdapter() {
         empowerAdapter = EmpowerAdapter(power)
 
         with(binding.feedRecycler) {
@@ -81,28 +93,32 @@ class EmpowerFragment : Fragment() {
             setHasFixedSize(true)
             adapter = empowerAdapter
             smoothScrollToPosition(0)
-
-            if (power is Power.Banner) {
-                val pager = PagerSnapHelper()
-                pager.attachToRecyclerView(this)
-            }
         }
+    }
 
+    private fun loadInfo() {
         viewModel.content.observe(viewLifecycleOwner) { list ->
             empowerAdapter.submitList(list)
 
-            if (power is Power.Banner) {
-                binding.indicatorView.apply {
-                    visibility = View.VISIBLE
-                    setRecyclerView(
-                        binding.feedRecycler, linearLayoutManager, list.size,
-                        linearLayoutManager?.findLastVisibleItemPosition(), false
-                    )
-                }
-            } else {
-                binding.indicatorView.apply {
-                    visibility = View.GONE
-                }
+            handleData(list)
+        }
+    }
+
+    private fun handleData(list: List<Content>) {
+        if (power is Power.Banner) {
+            val pager = PagerSnapHelper()
+            pager.attachToRecyclerView(binding.feedRecycler)
+
+            binding.indicatorView.apply {
+                visibility = View.VISIBLE
+                setRecyclerView(
+                    binding.feedRecycler, linearLayoutManager, list.size,
+                    linearLayoutManager?.findLastVisibleItemPosition(), false
+                )
+            }
+        } else {
+            binding.indicatorView.apply {
+                visibility = View.GONE
             }
         }
     }
@@ -110,6 +126,7 @@ class EmpowerFragment : Fragment() {
     companion object {
         const val EMPOWER_POWER_OBJECT = "power"
         const val EMPOWER_OPTION_OBJECT = "option"
+        const val EMPOWER_CONTENT_OBJECT = "content"
         const val INSTANCE_HASH_CODE = "instanceHashcode"
 
         @JvmStatic

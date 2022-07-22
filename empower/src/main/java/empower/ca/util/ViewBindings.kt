@@ -50,21 +50,6 @@ fun loadData(view: ItemBasicBinding, content: Content, itemView: View) {
     }
 }
 
-private fun openDetail(context: Context, itemCliked: String) {
-    Toast.makeText(context, "$itemCliked", Toast.LENGTH_LONG).show()
-    val intent = Intent(context, DetailActivity::class.java)
-    context.startActivity(intent)
-    /*val bundle = Bundle()
-    bundle.putParcelable(
-        ButtonCardDetailActivity.EXTRA_BUTTONCARD_DETAILS
-    )
-    bundle.putParcelable(
-        ButtonCardDetailActivity.EXTRA_USER_ACTION_HANDLER,
-        this
-    )
-    intent.openActivity(ButtonCardDetailActivity::class.java, bundle)*/
-}
-
 fun loadData(view: ItemBannerBinding, content: Content, itemView: View) {
     view.cardBanner.visibility = View.VISIBLE
     view.header.text = content.header
@@ -165,4 +150,19 @@ fun loadData(view: ItemAdsBinding, content: Content, itemView: View) {
     view.linkOperator.setOnClickListener {
         openDetail(view.cardAds.context, "link")
     }
+}
+
+private fun openDetail(context: Context, itemCliked: String) {
+    Toast.makeText(context, "$itemCliked", Toast.LENGTH_LONG).show()
+    val intent = Intent(context, DetailActivity::class.java)
+    context.startActivity(intent)
+    /*val bundle = Bundle()
+    bundle.putParcelable(
+        ButtonCardDetailActivity.EXTRA_BUTTONCARD_DETAILS
+    )
+    bundle.putParcelable(
+        ButtonCardDetailActivity.EXTRA_USER_ACTION_HANDLER,
+        this
+    )
+    intent.openActivity(ButtonCardDetailActivity::class.java, bundle)*/
 }
