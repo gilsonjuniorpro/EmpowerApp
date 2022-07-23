@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingConfig
+import empower.ca.enums.ContentType
 import empower.ca.model.Content
 import empower.ca.model.Operator
 import empower.ca.sealed.Power
@@ -26,7 +27,7 @@ class ContentViewModel : ViewModel() {
                         _content.value = (
                             listOf(
                                 Content(
-                                    "banner",
+                                    ContentType.EMPOWER_VIEWTYPE_BANNER,
                                     "Iron Man",
                                     "test title",
                                     "test description",
@@ -41,7 +42,7 @@ class ContentViewModel : ViewModel() {
                                     )
                                 ),
                                 Content(
-                                    "banner",
+                                    ContentType.EMPOWER_VIEWTYPE_BANNER,
                                     "Iron Man",
                                     "test title",
                                     "test description",
@@ -56,7 +57,7 @@ class ContentViewModel : ViewModel() {
                                     )
                                 ),
                                 Content(
-                                    "banner",
+                                    ContentType.EMPOWER_VIEWTYPE_BANNER,
                                     "Iron Man",
                                     "test title",
                                     "test description",
@@ -71,7 +72,7 @@ class ContentViewModel : ViewModel() {
                                     )
                                 ),
                                 Content(
-                                    "banner",
+                                    ContentType.EMPOWER_VIEWTYPE_BANNER,
                                     "Iron Man",
                                     "test title",
                                     "test description",
@@ -92,7 +93,7 @@ class ContentViewModel : ViewModel() {
                         _content.value = (
                             listOf(
                                 Content(
-                                    "basic",
+                                    ContentType.EMPOWER_VIEWTYPE_BASIC,
                                     "Iron Man",
                                     "test title",
                                     "test description",
@@ -107,7 +108,7 @@ class ContentViewModel : ViewModel() {
                                     )
                                 ),
                                 Content(
-                                    "basic",
+                                    ContentType.EMPOWER_VIEWTYPE_BASIC,
                                     "Iron Man",
                                     "test title",
                                     "test description",
@@ -122,7 +123,7 @@ class ContentViewModel : ViewModel() {
                                     )
                                 ),
                                 Content(
-                                    "basic",
+                                    ContentType.EMPOWER_VIEWTYPE_BASIC,
                                     "Iron Man",
                                     "test title",
                                     "test description",
@@ -149,7 +150,7 @@ class ContentViewModel : ViewModel() {
                         _content.value = (
                             listOf(
                                 Content(
-                                    "expose",
+                                    ContentType.EMPOWER_VIEWTYPE_EXPOSE,
                                     "Iron Man",
                                     "test title",
                                     "test description",
@@ -164,7 +165,7 @@ class ContentViewModel : ViewModel() {
                                     )
                                 ),
                                 Content(
-                                    "expose",
+                                    ContentType.EMPOWER_VIEWTYPE_EXPOSE,
                                     "Iron Man",
                                     "test title",
                                     "test description",
@@ -179,7 +180,7 @@ class ContentViewModel : ViewModel() {
                                     )
                                 ),
                                 Content(
-                                    "expose",
+                                    ContentType.EMPOWER_VIEWTYPE_EXPOSE,
                                     "Iron Man",
                                     "test title",
                                     "test description",
@@ -206,7 +207,7 @@ class ContentViewModel : ViewModel() {
                         _content.value = (
                             listOf(
                                 Content(
-                                    "ads",
+                                    ContentType.EMPOWER_VIEWTYPE_ADS,
                                     "Iron Man",
                                     "test title",
                                     "test description",
@@ -221,7 +222,7 @@ class ContentViewModel : ViewModel() {
                                     )
                                 ),
                                 Content(
-                                    "ads",
+                                    ContentType.EMPOWER_VIEWTYPE_ADS,
                                     "Iron Man",
                                     "test title",
                                     "test description",
@@ -236,7 +237,7 @@ class ContentViewModel : ViewModel() {
                                     )
                                 ),
                                 Content(
-                                    "ads",
+                                    ContentType.EMPOWER_VIEWTYPE_ADS,
                                     "Iron Man",
                                     "test title",
                                     "test description",

@@ -7,14 +7,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import empower.ca.databinding.ItemBaseBinding
+import empower.ca.enums.ContentType
 import empower.ca.model.Content
 import empower.ca.sealed.Power
 import empower.ca.util.loadData
 
-const val EMPOWER_VIEWTYPE_BASIC = "basic"
+/*const val EMPOWER_VIEWTYPE_BASIC = "basic"
 const val EMPOWER_VIEWTYPE_BANNER = "banner"
 const val EMPOWER_VIEWTYPE_EXPOSE = "expose"
-const val EMPOWER_VIEWTYPE_ADS = "ads"
+const val EMPOWER_VIEWTYPE_ADS = "ads"*/
 
 class EmpowerAdapter(private val power: Power) : ListAdapter<Content,
         EmpowerAdapter.EmpowerViewHolder>(ContentCallBack()){
@@ -33,7 +34,7 @@ class EmpowerAdapter(private val power: Power) : ListAdapter<Content,
 
             when(power){
                 is Power.Basic -> {
-                    if(content.contentType == EMPOWER_VIEWTYPE_BASIC) {
+                    if(content.contentType == ContentType.EMPOWER_VIEWTYPE_BASIC) {
                         val viewBase = binding.layItemBasic
                         viewBase.apply {
                             loadData(this, content, itemView)
@@ -41,7 +42,7 @@ class EmpowerAdapter(private val power: Power) : ListAdapter<Content,
                     }
                 }
                 is Power.Banner -> {
-                    if(content.contentType == EMPOWER_VIEWTYPE_BANNER) {
+                    if(content.contentType == ContentType.EMPOWER_VIEWTYPE_BANNER) {
                         val viewBase = binding.layItemBanner
                         viewBase.apply {
                             loadData(this, content, itemView)
@@ -49,7 +50,7 @@ class EmpowerAdapter(private val power: Power) : ListAdapter<Content,
                     }
                 }
                 is Power.Expose -> {
-                    if(content.contentType == EMPOWER_VIEWTYPE_EXPOSE) {
+                    if(content.contentType == ContentType.EMPOWER_VIEWTYPE_EXPOSE) {
                         val viewBase = binding.layItemExpose
                         viewBase.apply {
                             loadData(this, content, itemView)
@@ -57,7 +58,7 @@ class EmpowerAdapter(private val power: Power) : ListAdapter<Content,
                     }
                 }
                 is Power.Ads -> {
-                    if(content.contentType == EMPOWER_VIEWTYPE_ADS) {
+                    if(content.contentType == ContentType.EMPOWER_VIEWTYPE_ADS) {
                         val viewBase = binding.layItemAds
                         viewBase.apply {
                             loadData(this, content, itemView)

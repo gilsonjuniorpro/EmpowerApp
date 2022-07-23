@@ -3,50 +3,79 @@ package empowerapp.ca
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import empower.ca.adapter.EMPOWER_VIEWTYPE_BANNER
-import empower.ca.adapter.EMPOWER_VIEWTYPE_EXPOSE
 import empower.ca.core.Empower
+import empower.ca.enums.ContentType
 import empower.ca.model.Content
 import empower.ca.model.Operator
 import empower.ca.sealed.Option
 import empower.ca.sealed.Power
 
-private const val ADS = "ads"
-private const val BASIC = "basic"
-private const val BANNER = "banner"
-private const val EXPOSE = "expose"
 
 class MainActivity : AppCompatActivity() {
+
+    var contentList = ArrayList<Content>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         findViewById<Button>(R.id.bt_load_ads).setOnClickListener {
-            loadData(ADS)
+            populate(ContentType.EMPOWER_VIEWTYPE_ADS)
+            val container = Option.Container(
+                "Este eh o titulo do ads",
+                "ver mais"
+            )
+            loadData(Power.Ads, container)
         }
 
         findViewById<Button>(R.id.bt_load_basic).setOnClickListener {
-            loadData(BASIC)
+            populate(ContentType.EMPOWER_VIEWTYPE_BASIC)
+            val container = Option.Container(
+                "Este eh o titulo do basic",
+                "detalhes"
+            )
+            loadData(Power.Basic, container)
         }
 
         findViewById<Button>(R.id.bt_load_banner).setOnClickListener {
-            loadData(BANNER)
+            populate(ContentType.EMPOWER_VIEWTYPE_BANNER)
+            val container = Option.Container(
+                "Este eh o titulo do banner",
+                "share"
+            )
+            loadData(Power.Banner, container)
         }
 
         findViewById<Button>(R.id.bt_load_expose).setOnClickListener {
-            loadData(EXPOSE)
+            populate(ContentType.EMPOWER_VIEWTYPE_EXPOSE)
+            val container = Option.Container(
+                "Este eh o titulo do expose",
+                "ver todos"
+            )
+            loadData(Power.Expose, container)
         }
     }
 
-    private fun loadData(what: String) {
+    private fun loadData(power: Power, container: Option.Container?) {
         val transaction = supportFragmentManager.beginTransaction()
 
-        val contentList = ArrayList<Content>()
+        Empower.fragment(
+            applicationContext,
+            Option.Container(container?.title, container?.linkText),
+            power,
+            contentList
+        ).let {
+            transaction.replace(R.id.layout_base, it)
+        }
 
+        transaction.commit()
+    }
+
+    fun populate(contentType: ContentType){
         repeat((0..5).count()) {
             contentList.add(
                 Content(
-                    contentType = EMPOWER_VIEWTYPE_BANNER,
+                    contentType = contentType,
                     header = "Olaaaa infermeira",
                     title = "Este eh a porra do titulo",
                     description = "aqui esta a descricao do bagulho",
@@ -62,48 +91,5 @@ class MainActivity : AppCompatActivity() {
                 )
             )
         }
-
-
-        when(what) {
-            ADS -> {
-                Empower.fragment(
-                    applicationContext,
-                    Option.Container("This is the $ADS", "just go"),
-                    Power.Ads
-                ).let {
-                    transaction.replace(R.id.layout_base, it)
-                }
-            }
-            BASIC -> {
-                Empower.fragment(
-                    applicationContext,
-                    Option.Container("This is the $BASIC", "just go"),
-                    Power.Basic
-                ).let {
-                    transaction.replace(R.id.layout_base, it)
-                }
-            }
-            BANNER -> {
-                Empower.fragment(
-                    applicationContext,
-                    Option.Container("This is the $BANNER", "just go"),
-                    Power.Banner,
-                    contentList
-                ).let {
-                    transaction.replace(R.id.layout_base, it)
-                }
-            }
-            EXPOSE -> {
-                Empower.fragment(
-                    applicationContext,
-                    Option.Container("This is the $EXPOSE", "just go"),
-                    Power.Expose
-                ).let {
-                    transaction.replace(R.id.layout_base, it)
-                }
-            }
-        }
-
-        transaction.commit()
     }
 }

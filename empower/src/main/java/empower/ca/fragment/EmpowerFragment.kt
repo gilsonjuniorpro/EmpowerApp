@@ -70,7 +70,7 @@ class EmpowerFragment : Fragment() {
             }
 
             val contentList: ArrayList<Content>? =
-                arguments?.getParcelableArrayList(EMPOWER_CONTENT_OBJECT)
+                arguments?.getParcelableArrayList(EMPOWER_CONTENT_OBJECT) ?: ArrayList()
 
             initAdapter()
 
