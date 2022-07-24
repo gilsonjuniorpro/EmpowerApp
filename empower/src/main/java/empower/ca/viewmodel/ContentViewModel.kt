@@ -27,7 +27,6 @@ class ContentViewModel : ViewModel() {
                         _content.value = (
                             listOf(
                                 Content(
-                                    ContentType.EMPOWER_VIEWTYPE_BANNER,
                                     "Iron Man",
                                     "test title",
                                     "test description",
@@ -42,7 +41,6 @@ class ContentViewModel : ViewModel() {
                                     )
                                 ),
                                 Content(
-                                    ContentType.EMPOWER_VIEWTYPE_BANNER,
                                     "Iron Man",
                                     "test title",
                                     "test description",
@@ -57,7 +55,6 @@ class ContentViewModel : ViewModel() {
                                     )
                                 ),
                                 Content(
-                                    ContentType.EMPOWER_VIEWTYPE_BANNER,
                                     "Iron Man",
                                     "test title",
                                     "test description",
@@ -72,7 +69,6 @@ class ContentViewModel : ViewModel() {
                                     )
                                 ),
                                 Content(
-                                    ContentType.EMPOWER_VIEWTYPE_BANNER,
                                     "Iron Man",
                                     "test title",
                                     "test description",
@@ -93,7 +89,6 @@ class ContentViewModel : ViewModel() {
                         _content.value = (
                             listOf(
                                 Content(
-                                    ContentType.EMPOWER_VIEWTYPE_BASIC,
                                     "Iron Man",
                                     "test title",
                                     "test description",
@@ -108,7 +103,6 @@ class ContentViewModel : ViewModel() {
                                     )
                                 ),
                                 Content(
-                                    ContentType.EMPOWER_VIEWTYPE_BASIC,
                                     "Iron Man",
                                     "test title",
                                     "test description",
@@ -123,7 +117,6 @@ class ContentViewModel : ViewModel() {
                                     )
                                 ),
                                 Content(
-                                    ContentType.EMPOWER_VIEWTYPE_BASIC,
                                     "Iron Man",
                                     "test title",
                                     "test description",
@@ -150,7 +143,6 @@ class ContentViewModel : ViewModel() {
                         _content.value = (
                             listOf(
                                 Content(
-                                    ContentType.EMPOWER_VIEWTYPE_EXPOSE,
                                     "Iron Man",
                                     "test title",
                                     "test description",
@@ -165,7 +157,6 @@ class ContentViewModel : ViewModel() {
                                     )
                                 ),
                                 Content(
-                                    ContentType.EMPOWER_VIEWTYPE_EXPOSE,
                                     "Iron Man",
                                     "test title",
                                     "test description",
@@ -180,7 +171,6 @@ class ContentViewModel : ViewModel() {
                                     )
                                 ),
                                 Content(
-                                    ContentType.EMPOWER_VIEWTYPE_EXPOSE,
                                     "Iron Man",
                                     "test title",
                                     "test description",
@@ -207,7 +197,6 @@ class ContentViewModel : ViewModel() {
                         _content.value = (
                             listOf(
                                 Content(
-                                    ContentType.EMPOWER_VIEWTYPE_ADS,
                                     "Iron Man",
                                     "test title",
                                     "test description",
@@ -222,7 +211,6 @@ class ContentViewModel : ViewModel() {
                                     )
                                 ),
                                 Content(
-                                    ContentType.EMPOWER_VIEWTYPE_ADS,
                                     "Iron Man",
                                     "test title",
                                     "test description",
@@ -237,7 +225,6 @@ class ContentViewModel : ViewModel() {
                                     )
                                 ),
                                 Content(
-                                    ContentType.EMPOWER_VIEWTYPE_ADS,
                                     "Iron Man",
                                     "test title",
                                     "test description",

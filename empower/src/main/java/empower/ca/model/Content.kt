@@ -6,7 +6,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Content(
-    var contentType: ContentType,
     var header: String,
     var title: String,
     var description: String,

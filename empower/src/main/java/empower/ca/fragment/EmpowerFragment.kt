@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import empower.ca.adapter.EmpowerAdapter
 import empower.ca.databinding.FragmentEmpowerBinding
 import empower.ca.model.Content
+import empower.ca.model.ContentWrapper
 import empower.ca.sealed.Option
 import empower.ca.sealed.Power
 import empower.ca.viewmodel.ContentViewModel
@@ -69,24 +70,24 @@ class EmpowerFragment : Fragment() {
                     LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             }
 
-            val contentList: ArrayList<Content>? =
-                arguments?.getParcelableArrayList(EMPOWER_CONTENT_OBJECT) ?: ArrayList()
+            val contentWrapper: ContentWrapper =
+                arguments?.getParcelable(EMPOWER_CONTENT_OBJECT) ?: ContentWrapper()
 
-            initAdapter()
+            initAdapter(contentWrapper.contentType)
 
-            if (contentList?.size == 0) {
+            if (contentWrapper.contents.isEmpty()) {
                 loadInfo()
                 viewModel.listContent(power)
             } else {
-                empowerAdapter.submitList(contentList)
+                empowerAdapter.submitList(contentWrapper.contents)
 
-                handleData(contentList!!)
+                handleData(contentWrapper.contents)
             }
         }
     }
 
-    private fun initAdapter() {
-        empowerAdapter = EmpowerAdapter(power)
+    private fun initAdapter(contentType: String) {
+        empowerAdapter = EmpowerAdapter(power, contentType)
 
         with(binding.feedRecycler) {
             layoutManager = linearLayoutManager
