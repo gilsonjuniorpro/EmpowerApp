@@ -76,18 +76,36 @@ class MainActivity : AppCompatActivity() {
 
     fun populate(contentType: String){
         contentList.clear()
+
+        contentList.add(
+            Content(
+                header = "Olaaaa infermeira",
+                title = "Este eh a porra do titulo",
+                description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                image = "https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg",
+                operators = listOf(
+                    Operator(
+                        type = "link",
+                        actionType = "open detail",
+                        actionValue= "https://investnews.com.br/cafeina/19-fundos-imobiliarios-com-rendimentos-acima-de-1325-ao-ano/",
+                        text = "my button"
+                    )
+                )
+            )
+        )
+
         repeat((0..4).count()) {
             contentList.add(
                 Content(
                     header = "Olaaaa infermeira",
                     title = "Este eh a porra do titulo",
-                    description = "aqui esta a descricao do bagulho",
+                    description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
                     image = "https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg",
                     operators = listOf(
                         Operator(
                             type = "button",
                             actionType = "open detail",
-                            actionValue= "",
+                            actionValue= "https://investnews.com.br/cafeina/19-fundos-imobiliarios-com-rendimentos-acima-de-1325-ao-ano/",
                             text = "my button"
                         )
                     )

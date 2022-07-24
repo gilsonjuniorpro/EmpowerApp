@@ -13,10 +13,6 @@ import empower.ca.sealed.Power
 import empower.ca.util.Utils
 import empower.ca.util.loadData
 
-/*const val EMPOWER_VIEWTYPE_BASIC = "basic"
-const val EMPOWER_VIEWTYPE_BANNER = "banner"
-const val EMPOWER_VIEWTYPE_EXPOSE = "expose"
-const val EMPOWER_VIEWTYPE_ADS = "ads"*/
 
 class EmpowerAdapter(private val power: Power, private val contentType: String) : ListAdapter<Content,
         EmpowerAdapter.EmpowerViewHolder>(ContentCallBack()){

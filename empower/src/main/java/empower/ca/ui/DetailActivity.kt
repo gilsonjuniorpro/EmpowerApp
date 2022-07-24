@@ -1,11 +1,13 @@
 package empower.ca.ui
 
-import android.graphics.Color
 import android.os.Bundle
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import empower.ca.R
-import empower.ca.fragment.DetailFragment
+import empower.ca.model.Content
 
 
 class DetailActivity : AppCompatActivity() {
@@ -14,15 +16,25 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
-        // add custom back button
-        val toolbar = findViewById<Toolbar>(R.id.action_detail_toolbar)
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
-        toolbar.setTitleTextColor(Color.WHITE)
+        val content = intent.getParcelableExtra<Content>("content")
 
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.addToBackStack(null)
-        transaction.replace(R.id.detail_container, DetailFragment()).commit()
+        val header = findViewById<TextView>(R.id.header)
+        val title = findViewById<TextView>(R.id.title)
+        val description = findViewById<TextView>(R.id.description)
+        val image = findViewById<ImageView>(R.id.image)
+
+        content?.let {
+            header.text = it.header
+            title.text = it.title
+            description.text = it.description
+
+            Glide.with(image)
+                .load(it.image)
+                .centerCrop()
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .error(R.drawable.marvel)
+                .into(image)
+        }
+
     }
 }
