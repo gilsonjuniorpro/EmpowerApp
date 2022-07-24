@@ -1,10 +1,11 @@
 package empower.ca.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
@@ -110,11 +111,17 @@ class EmpowerFragment : Fragment() {
             val pager = PagerSnapHelper()
             pager.attachToRecyclerView(binding.feedRecycler)
 
+            val params: ConstraintLayout.LayoutParams =
+                binding.feedRecycler.layoutParams as ConstraintLayout.LayoutParams
+            params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT
+            params.width = ConstraintLayout.LayoutParams.MATCH_PARENT
+            binding.feedRecycler.layoutParams = params
+
             binding.indicatorView.apply {
                 visibility = View.VISIBLE
                 setRecyclerView(
                     binding.feedRecycler, linearLayoutManager, list.size,
-                    linearLayoutManager?.findLastVisibleItemPosition(), false
+                    linearLayoutManager.findLastVisibleItemPosition(), false
                 )
             }
         } else {

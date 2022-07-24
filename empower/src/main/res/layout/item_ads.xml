@@ -6,6 +6,8 @@
     android:visibility="gone"
     android:layout_width="346dp"
     android:layout_height="356dp"
+    android:layout_margin="@dimen/margin_16"
+    android:layout_gravity="center"
     android:orientation="vertical"
     app:cardBackgroundColor="@color/banner_background"
     app:cardCornerRadius="@dimen/banner_card_radius"
