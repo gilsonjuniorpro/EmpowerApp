@@ -1,6 +1,7 @@
 package empower.ca.util
 
 import empower.ca.enums.ContentType
+import empower.ca.sealed.Power
 
 object Utils {
 
@@ -34,6 +35,23 @@ object Utils {
             }
             else -> {
                 "EMPOWER_VIEWTYPE_EXPOSE"
+            }
+        }
+    }
+
+    fun getPower(contentType: String?): Power {
+        return when (contentType) {
+            "EMPOWER_VIEWTYPE_BASIC" -> {
+                Power.Basic
+            }
+            "EMPOWER_VIEWTYPE_BANNER" -> {
+                Power.Banner
+            }
+            "EMPOWER_VIEWTYPE_ADS" -> {
+                Power.Ads
+            }
+            else -> {
+                Power.Expose
             }
         }
     }
