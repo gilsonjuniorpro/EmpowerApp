@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
     }
 
-    fun populate(contentType: String){
+    fun populate(contentType: String) {
         contentList.clear()
 
         contentList.add(
@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity() {
                     Operator(
                         type = "link",
                         actionType = "open detail",
-                        actionValue= "https://investnews.com.br/cafeina/19-fundos-imobiliarios-com-rendimentos-acima-de-1325-ao-ano/",
+                        actionValue = "https://investnews.com.br/cafeina/19-fundos-imobiliarios-com-rendimentos-acima-de-1325-ao-ano/",
                         text = "my button"
                     )
                 )
@@ -105,7 +105,7 @@ class MainActivity : AppCompatActivity() {
                         Operator(
                             type = "button",
                             actionType = "open detail",
-                            actionValue= "https://investnews.com.br/cafeina/19-fundos-imobiliarios-com-rendimentos-acima-de-1325-ao-ano/",
+                            actionValue = "https://investnews.com.br/cafeina/19-fundos-imobiliarios-com-rendimentos-acima-de-1325-ao-ano/",
                             text = "my button"
                         )
                     )

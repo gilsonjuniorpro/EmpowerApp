@@ -127,8 +127,8 @@ class EmpowerFragment : Fragment() {
         } else {
             val params: ConstraintLayout.LayoutParams =
                 binding.feedRecycler.layoutParams as ConstraintLayout.LayoutParams
-            params.height = ConstraintLayout.LayoutParams.MATCH_PARENT
-            params.width = ConstraintLayout.LayoutParams.MATCH_PARENT
+            params.height = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
+            params.width = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
             binding.feedRecycler.layoutParams = params
 
             binding.indicatorView.apply {
