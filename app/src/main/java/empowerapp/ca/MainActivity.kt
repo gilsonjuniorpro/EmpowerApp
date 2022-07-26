@@ -10,7 +10,7 @@ import empower.ca.model.ContentWrapper
 import empower.ca.model.Operator
 import empower.ca.sealed.Option
 import empower.ca.sealed.Power
-import empower.ca.util.Utils
+import empower.ca.util.contentTypeToString
 
 
 class MainActivity : AppCompatActivity() {
@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         findViewById<Button>(R.id.bt_load_ads).setOnClickListener {
-            populate(Utils.contentTypeToString(ContentType.EMPOWER_VIEWTYPE_ADS))
+            populate(contentTypeToString(ContentType.EMPOWER_VIEWTYPE_ADS))
             val container = Option.Container(
                 "Este eh o titulo do ads",
                 "ver mais"
@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.bt_load_basic).setOnClickListener {
-            populate(Utils.contentTypeToString(ContentType.EMPOWER_VIEWTYPE_BASIC))
+            populate(contentTypeToString(ContentType.EMPOWER_VIEWTYPE_BASIC))
             val container = Option.Container(
                 "Este eh o titulo do basic",
                 "detalhes"
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.bt_load_banner).setOnClickListener {
-            populate(Utils.contentTypeToString(ContentType.EMPOWER_VIEWTYPE_BANNER))
+            populate(contentTypeToString(ContentType.EMPOWER_VIEWTYPE_BANNER))
             val container = Option.Container(
                 "Este eh o titulo do banner",
                 "share"
@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.bt_load_expose).setOnClickListener {
-            populate(Utils.contentTypeToString(ContentType.EMPOWER_VIEWTYPE_EXPOSE))
+            populate(contentTypeToString(ContentType.EMPOWER_VIEWTYPE_EXPOSE))
             val container = Option.Container(
                 "Este eh o titulo do expose",
                 "ver todos"
