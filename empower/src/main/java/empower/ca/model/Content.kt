@@ -6,9 +6,9 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Content(
-    var header: String,
-    var title: String,
-    var description: String,
-    var image: String,
+    var header: String?,
+    var title: String?,
+    var description: String?,
+    var image: String?,
     var operators: List<Operator>
 ): Parcelable
