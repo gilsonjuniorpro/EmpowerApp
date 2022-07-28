@@ -5,6 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ContentWrapper(
+    var containerTitle: String = "",
     var contentType: String = "EMPOWER_VIEWTYPE_BASIC",
     var contents: List<Content> = ArrayList()
 ): Parcelable

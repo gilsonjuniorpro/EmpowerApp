@@ -46,8 +46,11 @@ class EmpowerFragment : Fragment() {
         arguments?.let {
             instanceHashCode = arguments?.getInt(INSTANCE_HASH_CODE) ?: 0
 
+            val contentWrapper: ContentWrapper =
+                arguments?.getParcelable(EMPOWER_CONTENT_OBJECT) ?: ContentWrapper()
+
             val option = arguments?.getParcelable(EMPOWER_OPTION_OBJECT) ?: Option.Container()
-            if (option.title != null || option.linkText != null) {
+            if (!option.title.isNullOrEmpty() || !option.linkText.isNullOrEmpty()) {
                 option.title?.let {
                     binding.containerTitle.text = option.title
                     binding.containerTitle.visibility = View.VISIBLE
@@ -58,10 +61,15 @@ class EmpowerFragment : Fragment() {
                     binding.containerAction.visibility = View.VISIBLE
                 }
             } else {
-                binding.titleLinkContainer.visibility = View.GONE
+                if(contentWrapper.containerTitle.isNotEmpty()){
+                    binding.containerTitle.text = contentWrapper.containerTitle
+                    binding.containerTitle.visibility = View.VISIBLE
+                }else{
+                    binding.titleLinkContainer.visibility = View.GONE
+                }
             }
 
-            power = arguments?.getParcelable<Power>(EMPOWER_POWER_OBJECT) ?: Power.Basic
+            power = arguments?.getParcelable(EMPOWER_POWER_OBJECT) ?: Power.Basic
 
             linearLayoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -70,9 +78,6 @@ class EmpowerFragment : Fragment() {
                 linearLayoutManager =
                     LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             }
-
-            val contentWrapper: ContentWrapper =
-                arguments?.getParcelable(EMPOWER_CONTENT_OBJECT) ?: ContentWrapper()
 
             initAdapter(contentWrapper.contentType)
 

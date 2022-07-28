@@ -52,8 +52,8 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.bt_load_expose).setOnClickListener {
             populate(contentTypeToString(ContentType.EMPOWER_VIEWTYPE_EXPOSE))
             val container = Option.Container(
-                "Este eh o titulo do expose",
-                "ver todos"
+                "",
+                ""
             )
             loadData(Power.Expose, container)
         }
