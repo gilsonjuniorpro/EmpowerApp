@@ -68,8 +68,8 @@ class EmpowerFragment : Fragment() {
 
             power = arguments?.getParcelable<Power>(EMPOWER_POWER_OBJECT)
 
-            if(contentWrapper.urlJson.isNotEmpty()){
-                viewModel.getJson(contentWrapper.urlJson)
+            if(!contentWrapper.urlJson.isNullOrEmpty()){
+                viewModel.getJson(contentWrapper.urlJson!!)
             }else{
                 viewModel.setContentWrapperState(contentWrapper)
             }
@@ -98,7 +98,7 @@ class EmpowerFragment : Fragment() {
                                 binding.containerAction.visibility = View.VISIBLE
                             }
                         } else {
-                            if(contentWrapper.containerTitle.isNotEmpty()){
+                            if(!contentWrapper.containerTitle.isNullOrEmpty()){
                                 binding.containerTitle.text = contentWrapper.containerTitle
                                 binding.containerTitle.visibility = View.VISIBLE
                             }else{
@@ -139,7 +139,7 @@ class EmpowerFragment : Fragment() {
         }
     }
 
-    private fun initAdapter(contentType: String) {
+    private fun initAdapter(contentType: String?) {
         empowerAdapter = EmpowerAdapter(power, contentType)
 
         with(binding.feedRecycler) {

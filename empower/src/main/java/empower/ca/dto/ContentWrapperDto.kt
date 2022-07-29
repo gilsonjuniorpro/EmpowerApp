@@ -6,8 +6,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ContentWrapperDto(
-    var urlJson: String = "",
-    var containerTitle: String = "",
-    var contentType: String = "EMPOWER_VIEWTYPE_BASIC",
+    var urlJson: String? = "",
+    var containerTitle: String? = "",
+    var contentType: String? = "",
     var contents: List<ContentDto> = ArrayList()
 ): Parcelable

@@ -3,7 +3,7 @@ package empower.ca.util
 import empower.ca.enums.ContentType
 import empower.ca.sealed.Power
 
-fun extractContentType(contentType: String): ContentType {
+fun extractContentType(contentType: String?): ContentType {
     return when (contentType) {
         "EMPOWER_VIEWTYPE_BASIC" -> {
             ContentType.EMPOWER_VIEWTYPE_BASIC

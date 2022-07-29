@@ -14,7 +14,7 @@ import empower.ca.util.extractContentType
 import empower.ca.util.loadData
 
 
-class EmpowerAdapter(private val power: Power?, private val contentType: String) : ListAdapter<ContentDto,
+class EmpowerAdapter(private val power: Power?, private val contentType: String?) : ListAdapter<ContentDto,
         EmpowerAdapter.EmpowerViewHolder>(ContentCallBack()){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EmpowerViewHolder {
@@ -27,7 +27,7 @@ class EmpowerAdapter(private val power: Power?, private val contentType: String)
 
     class EmpowerViewHolder private constructor(private val binding: ItemBaseBinding) :
         RecyclerView.ViewHolder(binding.root){
-        fun bind(power: Power?, content: ContentDto, contentType: String){
+        fun bind(power: Power?, content: ContentDto, contentType: String?){
 
             when(power){
                 is Power.Basic -> {

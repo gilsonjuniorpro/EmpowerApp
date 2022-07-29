@@ -22,6 +22,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        findViewById<Button>(R.id.bt_load_from_url).setOnClickListener {
+            populate(null)
+            val container = Option.Container(
+                "Este eh o titulo do ads",
+                "ver mais"
+            )
+            loadData(Power.Ads, container)
+        }
+
         findViewById<Button>(R.id.bt_load_ads).setOnClickListener {
             populate(contentTypeToString(ContentType.EMPOWER_VIEWTYPE_ADS))
             val container = Option.Container(
@@ -82,7 +91,7 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
     }
 
-    fun populate(contentType: String) {
+    fun populate(contentType: String?) {
         contentList.clear()
 
         contentList.add(
@@ -121,9 +130,16 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
-        //urlJson = "https://www.projectconnect.com.br/send_notification/api/component/list/list.php",
+        /*
         contentWrapper = ContentWrapperDto(
+            urlJson = "https://www.projectconnect.com.br/send_notification/api/component/list/list.php",
             containerTitle = "this is the title",
+            contentType = contentType,
+            contents = contentList
+        )
+        */
+
+        contentWrapper = ContentWrapperDto(
             contentType = contentType,
             contents = contentList
         )
