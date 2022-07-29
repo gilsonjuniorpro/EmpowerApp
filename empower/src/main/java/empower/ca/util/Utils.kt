@@ -1,6 +1,7 @@
 package empower.ca.util
 
 import empower.ca.enums.ContentType
+import empower.ca.sealed.Option
 import empower.ca.sealed.Power
 
 fun extractContentType(contentType: String?): ContentType {
@@ -52,4 +53,8 @@ fun getPower(contentType: String?): Power {
             Power.Expose
         }
     }
+}
+
+fun getOption(containerTitle: String?): Option.Container {
+    return Option.Container(containerTitle)
 }

@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
@@ -20,6 +18,9 @@ import empower.ca.dto.ContentWrapperDto
 import empower.ca.repository.EmpowerRepository
 import empower.ca.sealed.Option
 import empower.ca.sealed.Power
+import empower.ca.util.URL_BASE
+import empower.ca.util.getOption
+import empower.ca.util.getPower
 import empower.ca.viewmodel.EmpowerViewModel
 import empower.ca.viewmodel.EmpowerViewModelFactory
 
@@ -31,10 +32,10 @@ import empower.ca.viewmodel.EmpowerViewModelFactory
 class EmpowerFragment : Fragment() {
 
     private var power: Power? = null
+    private var option: Option.Container? = null
     private var instanceHashCode: Int = 0
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var empowerAdapter: EmpowerAdapter
-    //private val viewModel: EmpowerViewModel by viewModels()
     lateinit var binding: FragmentEmpowerBinding
 
     private val viewModel: EmpowerViewModel by lazy {
@@ -64,12 +65,10 @@ class EmpowerFragment : Fragment() {
             var contentWrapper: ContentWrapperDto =
                 arguments?.getParcelable(EMPOWER_CONTENT_OBJECT) ?: ContentWrapperDto()
 
-            val option = arguments?.getParcelable<Option.Container>(EMPOWER_OPTION_OBJECT)
 
-            power = arguments?.getParcelable<Power>(EMPOWER_POWER_OBJECT)
-
-            if(!contentWrapper.urlJson.isNullOrEmpty()){
-                viewModel.getJson(contentWrapper.urlJson!!)
+            if(contentWrapper.urlJson != null){
+                val url = "$URL_BASE${contentWrapper.urlJson}"
+                viewModel.getJson(url)
             }else{
                 viewModel.setContentWrapperState(contentWrapper)
             }
@@ -87,14 +86,20 @@ class EmpowerFragment : Fragment() {
                         binding.loading.loadindContainer.visibility = View.GONE
                         contentWrapper = state.contentWrapperDto ?: ContentWrapperDto()
 
+                        //option = arguments?.getParcelable<Option.Container>(EMPOWER_OPTION_OBJECT)
+                        option = getOption(contentWrapper.containerTitle)
+
+                        //power = arguments?.getParcelable<Power>(EMPOWER_POWER_OBJECT)
+                        power = getPower(contentWrapper.contentType)
+
                         if (!option?.title.isNullOrEmpty() || !option?.linkText.isNullOrEmpty()) {
                             option?.title?.let {
-                                binding.containerTitle.text = option.title
+                                binding.containerTitle.text = option?.title
                                 binding.containerTitle.visibility = View.VISIBLE
                             }
 
                             option?.linkText?.let {
-                                binding.containerAction.text = option.linkText
+                                binding.containerAction.text = option?.linkText
                                 binding.containerAction.visibility = View.VISIBLE
                             }
                         } else {

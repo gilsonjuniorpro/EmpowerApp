@@ -23,12 +23,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         findViewById<Button>(R.id.bt_load_from_url).setOnClickListener {
-            populate(null)
-            val container = Option.Container(
-                "Este eh o titulo do ads",
-                "ver mais"
+            contentWrapper = ContentWrapperDto(
+                urlJson = ContentType.EMPOWER_VIEWTYPE_BANNER,
+                containerTitle = "this is the title",
             )
-            loadData(Power.Ads, container)
+            loadDataFromUrl(contentWrapper)
         }
 
         findViewById<Button>(R.id.bt_load_ads).setOnClickListener {
@@ -37,7 +36,7 @@ class MainActivity : AppCompatActivity() {
                 "Este eh o titulo do ads",
                 "ver mais"
             )
-            loadData(Power.Ads, container)
+            loadDataWithParams(Power.Ads, container)
         }
 
         findViewById<Button>(R.id.bt_load_basic).setOnClickListener {
@@ -46,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                 "Este eh o titulo do basic",
                 "detalhes"
             )
-            loadData(Power.Basic, container)
+            loadDataWithParams(Power.Basic, container)
         }
 
         findViewById<Button>(R.id.bt_load_banner).setOnClickListener {
@@ -55,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                 "Este eh o titulo do banner",
                 "share"
             )
-            loadData(Power.Banner, container)
+            loadDataWithParams(Power.Banner, container)
         }
 
         findViewById<Button>(R.id.bt_load_expose).setOnClickListener {
@@ -64,14 +63,25 @@ class MainActivity : AppCompatActivity() {
                 "",
                 ""
             )
-            loadData(Power.Expose, container)
+            loadDataWithParams(Power.Expose, container)
         }
     }
 
-    private fun loadData(power: Power, container: Option.Container?) {
+    private fun loadDataFromUrl(dto: ContentWrapperDto) {
         val transaction = supportFragmentManager.beginTransaction()
 
-        /*
+        Empower.fragment(
+            dto
+        ).let {
+            transaction.replace(R.id.layout_base, it)
+        }
+
+        transaction.commit()
+    }
+
+    private fun loadDataWithParams(power: Power, container: Option.Container?) {
+        val transaction = supportFragmentManager.beginTransaction()
+
         Empower.fragment(
             applicationContext,
             Option.Container(container?.title, container?.linkText),
@@ -80,7 +90,12 @@ class MainActivity : AppCompatActivity() {
         ).let {
             transaction.replace(R.id.layout_base, it)
         }
-        */
+
+        transaction.commit()
+    }
+
+    private fun loadData() {
+        val transaction = supportFragmentManager.beginTransaction()
 
         Empower.fragment(
             contentWrapper
