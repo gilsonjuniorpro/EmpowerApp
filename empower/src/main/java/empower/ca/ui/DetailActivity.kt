@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import empower.ca.R
-import empower.ca.model.Content
+import empower.ca.dto.ContentDto
 
 
 class DetailActivity : AppCompatActivity() {
@@ -16,7 +16,7 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
-        val content = intent.getParcelableExtra<Content>("content")
+        val content = intent.getParcelableExtra<ContentDto>("content")
 
         val header = findViewById<TextView>(R.id.header)
         val title = findViewById<TextView>(R.id.title)

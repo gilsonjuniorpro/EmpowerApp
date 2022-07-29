@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.widget.Button
 import empower.ca.core.Empower
 import empower.ca.enums.ContentType
-import empower.ca.model.Content
-import empower.ca.model.ContentWrapper
-import empower.ca.model.Operator
+import empower.ca.dto.ContentDto
+import empower.ca.dto.ContentWrapperDto
+import empower.ca.dto.OperatorDto
 import empower.ca.sealed.Option
 import empower.ca.sealed.Power
 import empower.ca.util.contentTypeToString
@@ -15,8 +15,8 @@ import empower.ca.util.contentTypeToString
 
 class MainActivity : AppCompatActivity() {
 
-    var contentList = ArrayList<Content>()
-    var contentWrapper = ContentWrapper()
+    var contentList = ArrayList<ContentDto>()
+    var contentWrapper = ContentWrapperDto()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,10 +62,18 @@ class MainActivity : AppCompatActivity() {
     private fun loadData(power: Power, container: Option.Container?) {
         val transaction = supportFragmentManager.beginTransaction()
 
+        /*
         Empower.fragment(
             applicationContext,
             Option.Container(container?.title, container?.linkText),
             power,
+            contentWrapper
+        ).let {
+            transaction.replace(R.id.layout_base, it)
+        }
+        */
+
+        Empower.fragment(
             contentWrapper
         ).let {
             transaction.replace(R.id.layout_base, it)
@@ -78,13 +86,13 @@ class MainActivity : AppCompatActivity() {
         contentList.clear()
 
         contentList.add(
-            Content(
+            ContentDto(
                 header = "Olaaaa infermeira",
                 title = "Este eh a porra do titulo",
                 description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
                 image = "https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg",
                 operators = listOf(
-                    Operator(
+                    OperatorDto(
                         type = "link",
                         actionType = "open detail",
                         actionValue = "https://investnews.com.br/cafeina/19-fundos-imobiliarios-com-rendimentos-acima-de-1325-ao-ano/",
@@ -96,13 +104,13 @@ class MainActivity : AppCompatActivity() {
 
         repeat((0..4).count()) {
             contentList.add(
-                Content(
+                ContentDto(
                     header = "Olaaaa infermeira",
                     title = "Este eh a porra do titulo",
                     description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
                     image = "https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg",
                     operators = listOf(
-                        Operator(
+                        OperatorDto(
                             type = "button",
                             actionType = "open detail",
                             actionValue = "https://investnews.com.br/cafeina/19-fundos-imobiliarios-com-rendimentos-acima-de-1325-ao-ano/",
@@ -113,7 +121,9 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
-        contentWrapper = ContentWrapper(
+        //urlJson = "https://www.projectconnect.com.br/send_notification/api/component/list/list.php",
+        contentWrapper = ContentWrapperDto(
+            containerTitle = "this is the title",
             contentType = contentType,
             contents = contentList
         )

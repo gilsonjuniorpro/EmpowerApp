@@ -4,18 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
+import empower.ca.R
 import empower.ca.adapter.EmpowerAdapter
 import empower.ca.databinding.FragmentEmpowerBinding
-import empower.ca.model.Content
-import empower.ca.model.ContentWrapper
+import empower.ca.dto.ContentDto
+import empower.ca.dto.ContentWrapperDto
+import empower.ca.repository.EmpowerRepository
 import empower.ca.sealed.Option
 import empower.ca.sealed.Power
-import empower.ca.viewmodel.ContentViewModel
+import empower.ca.viewmodel.EmpowerViewModel
+import empower.ca.viewmodel.EmpowerViewModelFactory
 
 /**
  * A simple [Fragment] subclass.
@@ -24,12 +30,21 @@ import empower.ca.viewmodel.ContentViewModel
  */
 class EmpowerFragment : Fragment() {
 
-    private lateinit var power: Power
+    private var power: Power? = null
     private var instanceHashCode: Int = 0
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var empowerAdapter: EmpowerAdapter
-    private val viewModel: ContentViewModel by viewModels()
+    //private val viewModel: EmpowerViewModel by viewModels()
     lateinit var binding: FragmentEmpowerBinding
+
+    private val viewModel: EmpowerViewModel by lazy {
+        ViewModelProvider(
+            this,
+            EmpowerViewModelFactory(
+                EmpowerRepository(requireContext())
+            )
+        )[EmpowerViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,48 +61,80 @@ class EmpowerFragment : Fragment() {
         arguments?.let {
             instanceHashCode = arguments?.getInt(INSTANCE_HASH_CODE) ?: 0
 
-            val contentWrapper: ContentWrapper =
-                arguments?.getParcelable(EMPOWER_CONTENT_OBJECT) ?: ContentWrapper()
+            var contentWrapper: ContentWrapperDto =
+                arguments?.getParcelable(EMPOWER_CONTENT_OBJECT) ?: ContentWrapperDto()
 
-            val option = arguments?.getParcelable(EMPOWER_OPTION_OBJECT) ?: Option.Container()
-            if (!option.title.isNullOrEmpty() || !option.linkText.isNullOrEmpty()) {
-                option.title?.let {
-                    binding.containerTitle.text = option.title
-                    binding.containerTitle.visibility = View.VISIBLE
-                }
+            val option = arguments?.getParcelable<Option.Container>(EMPOWER_OPTION_OBJECT)
 
-                option.linkText?.let {
-                    binding.containerAction.text = option.linkText
-                    binding.containerAction.visibility = View.VISIBLE
-                }
-            } else {
-                if(contentWrapper.containerTitle.isNotEmpty()){
-                    binding.containerTitle.text = contentWrapper.containerTitle
-                    binding.containerTitle.visibility = View.VISIBLE
-                }else{
-                    binding.titleLinkContainer.visibility = View.GONE
-                }
+            power = arguments?.getParcelable<Power>(EMPOWER_POWER_OBJECT)
+
+            if(contentWrapper.urlJson.isNotEmpty()){
+                viewModel.getJson(contentWrapper.urlJson)
+            }else{
+                viewModel.setContentWrapperState(contentWrapper)
             }
-
-            power = arguments?.getParcelable(EMPOWER_POWER_OBJECT) ?: Power.Basic
 
             linearLayoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
-            if (power is Power.Banner || power is Power.Expose) {
-                linearLayoutManager =
-                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            }
+            viewModel.state.observe(viewLifecycleOwner) { state ->
+                when (state) {
+                    is EmpowerViewModel.State.Loading -> {
+                        binding.loading.loadindContainer.visibility = View.VISIBLE
+                    }
 
-            initAdapter(contentWrapper.contentType)
+                    is EmpowerViewModel.State.Loaded -> {
+                        binding.loading.loadindContainer.visibility = View.GONE
+                        contentWrapper = state.contentWrapperDto ?: ContentWrapperDto()
 
-            if (contentWrapper.contents.isEmpty()) {
-                loadInfo()
-                viewModel.listContent(power)
-            } else {
-                empowerAdapter.submitList(contentWrapper.contents)
+                        if (!option?.title.isNullOrEmpty() || !option?.linkText.isNullOrEmpty()) {
+                            option?.title?.let {
+                                binding.containerTitle.text = option.title
+                                binding.containerTitle.visibility = View.VISIBLE
+                            }
 
-                handleData(contentWrapper.contents)
+                            option?.linkText?.let {
+                                binding.containerAction.text = option.linkText
+                                binding.containerAction.visibility = View.VISIBLE
+                            }
+                        } else {
+                            if(contentWrapper.containerTitle.isNotEmpty()){
+                                binding.containerTitle.text = contentWrapper.containerTitle
+                                binding.containerTitle.visibility = View.VISIBLE
+                            }else{
+                                binding.titleLinkContainer.visibility = View.GONE
+                            }
+                        }
+
+                        if (power is Power.Banner || power is Power.Expose) {
+                            linearLayoutManager =
+                                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                        }
+
+                        initAdapter(contentWrapper.contentType)
+
+                        if (contentWrapper.contents.isEmpty()) {
+                            loadInfo()
+                            viewModel.listContent(power)
+                        } else {
+                            empowerAdapter.submitList(contentWrapper.contents)
+
+                            handleData(contentWrapper.contents)
+                        }
+                    }
+
+                    is EmpowerViewModel.State.Error -> {
+                        binding.loading.loadindContainer.visibility = View.GONE
+                        if (!state.hasConsumed) {
+                            state.hasConsumed = true
+                            Toast.makeText(
+                                requireContext(),
+                                R.string.error_loading,
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    }
+                }
             }
         }
     }
@@ -111,7 +158,7 @@ class EmpowerFragment : Fragment() {
         }
     }
 
-    private fun handleData(list: List<Content>) {
+    private fun handleData(list: List<ContentDto>) {
         if (power is Power.Banner) {
             val pager = PagerSnapHelper()
             pager.attachToRecyclerView(binding.feedRecycler)

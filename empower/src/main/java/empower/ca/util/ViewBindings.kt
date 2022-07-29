@@ -11,11 +11,11 @@ import empower.ca.databinding.ItemAdsBinding
 import empower.ca.databinding.ItemBannerBinding
 import empower.ca.databinding.ItemBasicBinding
 import empower.ca.databinding.ItemExposeBinding
-import empower.ca.model.Content
+import empower.ca.dto.ContentDto
 import empower.ca.ui.DetailActivity
 
 
-fun loadData(view: ItemBasicBinding, content: Content, itemView: View) {
+fun loadData(view: ItemBasicBinding, content: ContentDto, itemView: View) {
     view.cardBasic.visibility = View.VISIBLE
     view.header.text = content.header
     view.title.text = content.title
@@ -51,7 +51,7 @@ fun loadData(view: ItemBasicBinding, content: Content, itemView: View) {
     }
 }
 
-fun loadData(view: ItemBannerBinding, content: Content, itemView: View) {
+fun loadData(view: ItemBannerBinding, content: ContentDto, itemView: View) {
     view.cardBanner.visibility = View.VISIBLE
     view.header.text = content.header
     view.title.text = content.title
@@ -87,7 +87,7 @@ fun loadData(view: ItemBannerBinding, content: Content, itemView: View) {
     }
 }
 
-fun loadData(view: ItemExposeBinding, content: Content, itemView: View) {
+fun loadData(view: ItemExposeBinding, content: ContentDto, itemView: View) {
     view.cardExpose.visibility = View.VISIBLE
     view.header.text = content.header
     view.title.text = content.title
@@ -123,7 +123,7 @@ fun loadData(view: ItemExposeBinding, content: Content, itemView: View) {
     }
 }
 
-fun loadData(view: ItemAdsBinding, content: Content, itemView: View) {
+fun loadData(view: ItemAdsBinding, content: ContentDto, itemView: View) {
     view.cardAds.visibility = View.VISIBLE
     view.header.text = content.header
     view.title.text = content.title
@@ -159,7 +159,7 @@ fun loadData(view: ItemAdsBinding, content: Content, itemView: View) {
     }
 }
 
-private fun openDetail(context: Context, content: Content, url: String? = null) {
+private fun openDetail(context: Context, content: ContentDto, url: String? = null) {
     if(url != null){
         val openURL = Intent(Intent.ACTION_VIEW)
         openURL.data = Uri.parse(url)

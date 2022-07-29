@@ -9,6 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#007AFF</color>
 
+    <color name="colorLoadingBg">#FFFDE7</color>
+
     <!-- Banner -->
     <color name="banner_background">#FDF8E1</color>
     <color name="banner_header">@color/black</color>

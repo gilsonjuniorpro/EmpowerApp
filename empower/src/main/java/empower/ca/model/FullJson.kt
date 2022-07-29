@@ -7,14 +7,11 @@ import kotlinx.parcelize.Parcelize
 
 @Entity
 @Parcelize
-class Content (
+class FullJson(
     @PrimaryKey
-    var id: String,
-    var header: String?,
-    var title: String?,
-    var description: String?,
-    var image: String?,
-    var operators: List<Operator>
+    val id: String,
+    val json: String,
+    val url: String
 ): Parcelable {
 
 }

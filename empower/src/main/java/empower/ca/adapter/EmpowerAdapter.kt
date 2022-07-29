@@ -8,13 +8,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import empower.ca.databinding.ItemBaseBinding
 import empower.ca.enums.ContentType
-import empower.ca.model.Content
+import empower.ca.dto.ContentDto
 import empower.ca.sealed.Power
 import empower.ca.util.extractContentType
 import empower.ca.util.loadData
 
 
-class EmpowerAdapter(private val power: Power, private val contentType: String) : ListAdapter<Content,
+class EmpowerAdapter(private val power: Power?, private val contentType: String) : ListAdapter<ContentDto,
         EmpowerAdapter.EmpowerViewHolder>(ContentCallBack()){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EmpowerViewHolder {
@@ -27,7 +27,7 @@ class EmpowerAdapter(private val power: Power, private val contentType: String) 
 
     class EmpowerViewHolder private constructor(private val binding: ItemBaseBinding) :
         RecyclerView.ViewHolder(binding.root){
-        fun bind(power: Power, content: Content, contentType: String){
+        fun bind(power: Power?, content: ContentDto, contentType: String){
 
             when(power){
                 is Power.Basic -> {
@@ -85,12 +85,12 @@ class EmpowerAdapter(private val power: Power, private val contentType: String) 
     }
 }
 
-class ContentCallBack : DiffUtil.ItemCallback<Content>(){
-    override fun areItemsTheSame(oldItem: Content, newItem: Content): Boolean {
+class ContentCallBack : DiffUtil.ItemCallback<ContentDto>(){
+    override fun areItemsTheSame(oldItem: ContentDto, newItem: ContentDto): Boolean {
         return oldItem.header == newItem.header
     }
 
-    override fun areContentsTheSame(oldItem: Content, newItem: Content): Boolean {
+    override fun areContentsTheSame(oldItem: ContentDto, newItem: ContentDto): Boolean {
         return oldItem.header == newItem.header
     }
 }

@@ -8,14 +8,14 @@ import empower.ca.fragment.EmpowerFragment.Companion.EMPOWER_CONTENT_OBJECT
 import empower.ca.fragment.EmpowerFragment.Companion.EMPOWER_OPTION_OBJECT
 import empower.ca.fragment.EmpowerFragment.Companion.EMPOWER_POWER_OBJECT
 import empower.ca.fragment.EmpowerFragment.Companion.INSTANCE_HASH_CODE
-import empower.ca.model.ContentWrapper
+import empower.ca.dto.ContentWrapperDto
 import empower.ca.sealed.Option
 import empower.ca.sealed.Power
 import empower.ca.util.getPower
 
 object Empower {
 
-    fun fragment(context: Context, option: Option, power: Power, contentWrapper: ContentWrapper? = null): Fragment {
+    fun fragment(context: Context, option: Option, power: Power, contentWrapper: ContentWrapperDto? = null): Fragment {
         val bundle = Bundle()
         bundle.putParcelable(EMPOWER_POWER_OBJECT, power)
         bundle.putParcelable(EMPOWER_OPTION_OBJECT, option)
@@ -29,7 +29,7 @@ object Empower {
         return empowerInstance
     }
 
-    fun fragment(contentWrapper: ContentWrapper): Fragment {
+    fun fragment(contentWrapper: ContentWrapperDto): Fragment {
         val bundle = Bundle()
         bundle.putParcelable(EMPOWER_POWER_OBJECT, getPower(contentWrapper.contentType))
         bundle.putParcelable(EMPOWER_OPTION_OBJECT, Option.Container(contentWrapper.containerTitle))

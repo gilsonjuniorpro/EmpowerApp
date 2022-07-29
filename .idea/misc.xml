@@ -7,6 +7,7 @@
         <entry key="app/src/main/res/layout/activity_starter.xml" value="0.35625" />
         <entry key="empower/src/main/res/drawable/btn_error.xml" value="0.137" />
         <entry key="empower/src/main/res/drawable/indicator_selected_state.xml" value="0.157" />
+        <entry key="empower/src/main/res/drawable/shape_loading.xml" value="0.2" />
         <entry key="empower/src/main/res/layout/activity_detail.xml" value="0.35625" />
         <entry key="empower/src/main/res/layout/detail_fragment.xml" value="0.35625" />
         <entry key="empower/src/main/res/layout/fragment_empower.xml" value="0.35625" />
@@ -15,6 +16,7 @@
         <entry key="empower/src/main/res/layout/item_base.xml" value="0.2734375" />
         <entry key="empower/src/main/res/layout/item_basic.xml" value="0.31979166666666664" />
         <entry key="empower/src/main/res/layout/item_expose.xml" value="0.35625" />
+        <entry key="empower/src/main/res/layout/layout_loading.xml" value="0.35625" />
         <entry key="empower/src/main/res/layout/test.xml" value="0.35625" />
       </map>
     </option>

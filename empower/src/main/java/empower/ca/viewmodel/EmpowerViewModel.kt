@@ -4,35 +4,43 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingConfig
-import empower.ca.enums.ContentType
-import empower.ca.model.Content
-import empower.ca.model.Operator
+import empower.ca.dto.ContentDto
+import empower.ca.dto.ContentWrapperDto
+import empower.ca.dto.OperatorDto
+import empower.ca.model.EmpowerHttp
+import empower.ca.repository.EmpowerRepository
 import empower.ca.sealed.Power
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.lang.Exception
 
-class ContentViewModel : ViewModel() {
+class EmpowerViewModel(
+    private val repository: EmpowerRepository
+) : ViewModel() {
 
-    private val _content = MutableLiveData<List<Content>>()
-    val content: LiveData<List<Content>>
+    private val _content = MutableLiveData<List<ContentDto>>()
+    val content: LiveData<List<ContentDto>>
         get() = _content
 
-    fun listContent(power: Power) {
+    private val _state = MutableLiveData<State>()
+    val state: LiveData<State>
+        get() = _state
+
+    fun listContent(power: Power?) {
         viewModelScope.launch {
             withContext(Dispatchers.Main) {
                 when (power) {
                     is Power.Banner -> {
                         _content.value = (
                             listOf(
-                                Content(
+                                ContentDto(
                                     "Iron Man",
                                     "test title",
                                     "test description",
                                     "https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg",
                                     listOf(
-                                        Operator(
+                                        OperatorDto(
                                             "button",
                                             "open detail",
                                             "detail screen",
@@ -40,13 +48,13 @@ class ContentViewModel : ViewModel() {
                                         )
                                     )
                                 ),
-                                Content(
+                                ContentDto(
                                     "Iron Man",
                                     "test title",
                                     "test description",
                                     "https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg",
                                     listOf(
-                                        Operator(
+                                        OperatorDto(
                                             "link",
                                             "open detail",
                                             "detail screen",
@@ -54,13 +62,13 @@ class ContentViewModel : ViewModel() {
                                         )
                                     )
                                 ),
-                                Content(
+                                ContentDto(
                                     "Iron Man",
                                     "test title",
                                     "test description",
                                     "https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg",
                                     listOf(
-                                        Operator(
+                                        OperatorDto(
                                             "link",
                                             "open detail",
                                             "detail screen",
@@ -68,13 +76,13 @@ class ContentViewModel : ViewModel() {
                                         )
                                     )
                                 ),
-                                Content(
+                                ContentDto(
                                     "Iron Man",
                                     "test title",
                                     "test description",
                                     "https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg",
                                     listOf(
-                                        Operator(
+                                        OperatorDto(
                                             "button",
                                             "open detail",
                                             "detail screen",
@@ -88,13 +96,13 @@ class ContentViewModel : ViewModel() {
                     is Power.Basic -> {
                         _content.value = (
                             listOf(
-                                Content(
+                                ContentDto(
                                     "Iron Man",
                                     "test title",
                                     "test description",
                                     "https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg",
                                     listOf(
-                                        Operator(
+                                        OperatorDto(
                                             "button",
                                             "open detail",
                                             "detail screen",
@@ -102,13 +110,13 @@ class ContentViewModel : ViewModel() {
                                         )
                                     )
                                 ),
-                                Content(
+                                ContentDto(
                                     "Iron Man",
                                     "test title",
                                     "test description",
                                     "https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg",
                                     listOf(
-                                        Operator(
+                                        OperatorDto(
                                             "link",
                                             "open detail",
                                             "detail screen",
@@ -116,19 +124,19 @@ class ContentViewModel : ViewModel() {
                                         )
                                     )
                                 ),
-                                Content(
+                                ContentDto(
                                     "Iron Man",
                                     "test title",
                                     "test description",
                                     "https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg",
                                     listOf(
-                                        Operator(
+                                        OperatorDto(
                                             "button",
                                             "open detail",
                                             "detail screen",
                                             "learn more"
                                         ),
-                                        Operator(
+                                        OperatorDto(
                                             "link",
                                             "open detail",
                                             "detail screen",
@@ -142,13 +150,13 @@ class ContentViewModel : ViewModel() {
                     is Power.Expose -> {
                         _content.value = (
                             listOf(
-                                Content(
+                                ContentDto(
                                     "Iron Man",
                                     "test title",
                                     "test description",
                                     "https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg",
                                     listOf(
-                                        Operator(
+                                        OperatorDto(
                                             "button",
                                             "open detail",
                                             "detail screen",
@@ -156,13 +164,13 @@ class ContentViewModel : ViewModel() {
                                         )
                                     )
                                 ),
-                                Content(
+                                ContentDto(
                                     "Iron Man",
                                     "test title",
                                     "test description",
                                     "https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg",
                                     listOf(
-                                        Operator(
+                                        OperatorDto(
                                             "link",
                                             "open detail",
                                             "detail screen",
@@ -170,19 +178,19 @@ class ContentViewModel : ViewModel() {
                                         )
                                     )
                                 ),
-                                Content(
+                                ContentDto(
                                     "Iron Man",
                                     "test title",
                                     "test description",
                                     "https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg",
                                     listOf(
-                                        Operator(
+                                        OperatorDto(
                                             "button",
                                             "open detail",
                                             "detail screen",
                                             "learn more"
                                         ),
-                                        Operator(
+                                        OperatorDto(
                                             "link",
                                             "open detail",
                                             "detail screen",
@@ -196,13 +204,13 @@ class ContentViewModel : ViewModel() {
                     is Power.Ads -> {
                         _content.value = (
                             listOf(
-                                Content(
+                                ContentDto(
                                     "Iron Man",
                                     "test title",
                                     "test description",
                                     "https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg",
                                     listOf(
-                                        Operator(
+                                        OperatorDto(
                                             "button",
                                             "open detail",
                                             "detail screen",
@@ -210,13 +218,13 @@ class ContentViewModel : ViewModel() {
                                         )
                                     )
                                 ),
-                                Content(
+                                ContentDto(
                                     "Iron Man",
                                     "test title",
                                     "test description",
                                     "https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg",
                                     listOf(
-                                        Operator(
+                                        OperatorDto(
                                             "link",
                                             "open detail",
                                             "detail screen",
@@ -224,19 +232,19 @@ class ContentViewModel : ViewModel() {
                                         )
                                     )
                                 ),
-                                Content(
+                                ContentDto(
                                     "Iron Man",
                                     "test title",
                                     "test description",
                                     "https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg",
                                     listOf(
-                                        Operator(
+                                        OperatorDto(
                                             "button",
                                             "open detail",
                                             "detail screen",
                                             "learn more"
                                         ),
-                                        Operator(
+                                        OperatorDto(
                                             "link",
                                             "open detail",
                                             "detail screen",
@@ -247,8 +255,92 @@ class ContentViewModel : ViewModel() {
                             )
                         )
                     }
+                    else -> {
+                        _content.value = (
+                                listOf(
+                                    ContentDto(
+                                        "Iron Man",
+                                        "test title",
+                                        "test description",
+                                        "https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg",
+                                        listOf(
+                                            OperatorDto(
+                                                "button",
+                                                "open detail",
+                                                "detail screen",
+                                                "learn more"
+                                            )
+                                        )
+                                    ),
+                                    ContentDto(
+                                        "Iron Man",
+                                        "test title",
+                                        "test description",
+                                        "https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg",
+                                        listOf(
+                                            OperatorDto(
+                                                "link",
+                                                "open detail",
+                                                "detail screen",
+                                                "learn more"
+                                            )
+                                        )
+                                    ),
+                                    ContentDto(
+                                        "Iron Man",
+                                        "test title",
+                                        "test description",
+                                        "https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg",
+                                        listOf(
+                                            OperatorDto(
+                                                "button",
+                                                "open detail",
+                                                "detail screen",
+                                                "learn more"
+                                            ),
+                                            OperatorDto(
+                                                "link",
+                                                "open detail",
+                                                "detail screen",
+                                                "go there"
+                                            )
+                                        )
+                                    )
+                                )
+                                )
+                    }
                 }
             }
         }
+    }
+
+    fun getJson(url: String){
+        viewModelScope.launch {
+            _state.value = State.Loading
+
+            val result = withContext(Dispatchers.IO) {
+                EmpowerHttp.getJson(url)
+            }
+
+            if(result == null){
+                _state.value = State.Error(Exception("Error loading content"), false)
+            }else{
+                _state.value = State.Loaded(result)
+            }
+        }
+    }
+
+    fun setContentWrapperState(contentWrapper: ContentWrapperDto) {
+        viewModelScope.launch {
+            _state.value = State.Loading
+
+            _state.value = State.Loaded(contentWrapper)
+        }
+    }
+
+    sealed class State {
+        object Loading: State()
+        data class Loaded(val contentWrapperDto: ContentWrapperDto?): State()
+        data class Error(val e: Throwable, var hasConsumed: Boolean): State()
     }
 }
