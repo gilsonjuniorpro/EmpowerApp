@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ContentWrapperDto(
-    var urlJson: ContentType? = null,
+    var urlJson: String? = null,
     var containerTitle: String? = "",
     var contentType: String? = "",
     var contents: List<ContentDto> = ArrayList()

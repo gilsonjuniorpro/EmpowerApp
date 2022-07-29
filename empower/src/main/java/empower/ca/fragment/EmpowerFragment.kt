@@ -15,10 +15,12 @@ import empower.ca.adapter.EmpowerAdapter
 import empower.ca.databinding.FragmentEmpowerBinding
 import empower.ca.dto.ContentDto
 import empower.ca.dto.ContentWrapperDto
+import empower.ca.enums.ContentType
 import empower.ca.repository.EmpowerRepository
 import empower.ca.sealed.Option
 import empower.ca.sealed.Power
 import empower.ca.util.URL_BASE
+import empower.ca.util.contentTypeToString
 import empower.ca.util.getOption
 import empower.ca.util.getPower
 import empower.ca.viewmodel.EmpowerViewModel
@@ -65,16 +67,12 @@ class EmpowerFragment : Fragment() {
             var contentWrapper: ContentWrapperDto =
                 arguments?.getParcelable(EMPOWER_CONTENT_OBJECT) ?: ContentWrapperDto()
 
-
             if(contentWrapper.urlJson != null){
-                val url = "$URL_BASE${contentWrapper.urlJson}"
+                val url = "${contentWrapper.urlJson!!}${contentWrapper.contentType}"
                 viewModel.getJson(url)
             }else{
                 viewModel.setContentWrapperState(contentWrapper)
             }
-
-            linearLayoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
             viewModel.state.observe(viewLifecycleOwner) { state ->
                 when (state) {
@@ -111,9 +109,10 @@ class EmpowerFragment : Fragment() {
                             }
                         }
 
-                        if (power is Power.Banner || power is Power.Expose) {
-                            linearLayoutManager =
-                                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                        linearLayoutManager = if (power is Power.Banner || power is Power.Expose) {
+                            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                        }else{
+                            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
                         }
 
                         initAdapter(contentWrapper.contentType)
@@ -132,11 +131,13 @@ class EmpowerFragment : Fragment() {
                         binding.loading.loadindContainer.visibility = View.GONE
                         if (!state.hasConsumed) {
                             state.hasConsumed = true
+                            /*
                             Toast.makeText(
                                 requireContext(),
                                 R.string.error_loading,
                                 Toast.LENGTH_LONG
                             ).show()
+                            */
                         }
                     }
                 }
@@ -151,7 +152,7 @@ class EmpowerFragment : Fragment() {
             layoutManager = linearLayoutManager
             setHasFixedSize(true)
             adapter = empowerAdapter
-            smoothScrollToPosition(0)
+            //smoothScrollToPosition(0)
         }
     }
 
@@ -173,6 +174,7 @@ class EmpowerFragment : Fragment() {
             params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT
             params.width = ConstraintLayout.LayoutParams.MATCH_PARENT
             binding.feedRecycler.layoutParams = params
+
 
             binding.indicatorView.apply {
                 visibility = View.VISIBLE

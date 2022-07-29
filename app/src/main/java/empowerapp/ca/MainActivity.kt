@@ -10,6 +10,7 @@ import empower.ca.dto.ContentWrapperDto
 import empower.ca.dto.OperatorDto
 import empower.ca.sealed.Option
 import empower.ca.sealed.Power
+import empower.ca.util.URL_BASE
 import empower.ca.util.contentTypeToString
 
 
@@ -22,10 +23,38 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        findViewById<Button>(R.id.bt_load_from_url).setOnClickListener {
+        findViewById<Button>(R.id.bt_load_ads_from_url).setOnClickListener {
             contentWrapper = ContentWrapperDto(
-                urlJson = ContentType.EMPOWER_VIEWTYPE_BANNER,
-                containerTitle = "this is the title",
+                urlJson = URL_BASE,
+                containerTitle = "this is the title ADS",
+                contentType = contentTypeToString(ContentType.EMPOWER_VIEWTYPE_ADS)
+            )
+            loadDataFromUrl(contentWrapper)
+        }
+
+        findViewById<Button>(R.id.bt_load_basic_from_url).setOnClickListener {
+            contentWrapper = ContentWrapperDto(
+                urlJson = URL_BASE,
+                containerTitle = "this is the title BASIC",
+                contentType = contentTypeToString(ContentType.EMPOWER_VIEWTYPE_BASIC)
+            )
+            loadDataFromUrl(contentWrapper)
+        }
+
+        findViewById<Button>(R.id.bt_load_banner_from_url).setOnClickListener {
+            contentWrapper = ContentWrapperDto(
+                urlJson = URL_BASE,
+                containerTitle = "this is the title BANNER",
+                contentType = contentTypeToString(ContentType.EMPOWER_VIEWTYPE_BANNER)
+            )
+            loadDataFromUrl(contentWrapper)
+        }
+
+        findViewById<Button>(R.id.bt_load_expose_from_url).setOnClickListener {
+            contentWrapper = ContentWrapperDto(
+                urlJson = URL_BASE,
+                containerTitle = "this is the title EXPOSE",
+                contentType = contentTypeToString(ContentType.EMPOWER_VIEWTYPE_EXPOSE)
             )
             loadDataFromUrl(contentWrapper)
         }
@@ -106,7 +135,7 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
     }
 
-    fun populate(contentType: String?) {
+    private fun populate(contentType: String?) {
         contentList.clear()
 
         contentList.add(
