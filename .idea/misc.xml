@@ -6,6 +6,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/activity_starter.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/item_banner.xml" value="0.3507692307692308" />
+        <entry key="app/src/main/res/layout/item_custom_client.xml" value="0.18177083333333333" />
         <entry key="empower/src/main/res/drawable/btn_error.xml" value="0.137" />
         <entry key="empower/src/main/res/drawable/indicator_selected_state.xml" value="0.157" />
         <entry key="empower/src/main/res/drawable/shape_loading.xml" value="0.2" />

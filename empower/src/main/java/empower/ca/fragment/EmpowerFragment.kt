@@ -115,7 +115,7 @@ class EmpowerFragment : Fragment() {
                             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
                         }
 
-                        initAdapter(contentWrapper.contentType)
+                        initAdapter(contentWrapper)
 
                         if (contentWrapper.contents.isEmpty()) {
                             loadInfo()
@@ -145,8 +145,8 @@ class EmpowerFragment : Fragment() {
         }
     }
 
-    private fun initAdapter(contentType: String?) {
-        empowerAdapter = EmpowerAdapter(power, contentType)
+    private fun initAdapter(contentWrapperDto: ContentWrapperDto) {
+        empowerAdapter = EmpowerAdapter(power, contentWrapperDto, layoutInflater)
 
         with(binding.feedRecycler) {
             layoutManager = linearLayoutManager

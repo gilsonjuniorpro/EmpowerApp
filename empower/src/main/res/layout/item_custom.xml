@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_custom"
+    android:visibility="gone"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/banner_card_height"
+    android:layout_margin="@dimen/margin_16"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/banner_card_radius"
+    app:cardElevation="@dimen/banner_card_elevation"
+    tools:visibility="visible">
+
+</com.google.android.material.card.MaterialCardView>

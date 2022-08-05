@@ -249,7 +249,7 @@ class MainActivity : AppCompatActivity() {
         contentWrapper = ContentWrapperDto(
             contentType = contentType,
             contents = contentList,
-            layout = R.layout.item_custom
+            layout = R.layout.item_custom_client
         )
     }
 }
