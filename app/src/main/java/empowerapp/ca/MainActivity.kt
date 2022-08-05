@@ -94,6 +94,15 @@ class MainActivity : AppCompatActivity() {
             )
             loadDataWithParams(Power.Expose, container)
         }
+
+        findViewById<Button>(R.id.bt_load_custom).setOnClickListener {
+            populateCustom(contentTypeToString(ContentType.EMPOWER_VIEWTYPE_CUSTOM))
+            val container = Option.Container(
+                "",
+                ""
+            )
+            loadDataWithParams(Power.Custom, container)
+        }
     }
 
     private fun loadDataFromUrl(dto: ContentWrapperDto) {
@@ -186,6 +195,61 @@ class MainActivity : AppCompatActivity() {
         contentWrapper = ContentWrapperDto(
             contentType = contentType,
             contents = contentList
+        )
+    }
+
+    private fun populateCustom(contentType: String?) {
+        contentList.clear()
+
+        contentList.add(
+            ContentDto(
+                header = "Olaaaa infermeira",
+                title = "Este eh a porra do titulo",
+                description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                image = "https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg",
+                operators = listOf(
+                    OperatorDto(
+                        type = "link",
+                        actionType = "open detail",
+                        actionValue = "https://investnews.com.br/cafeina/19-fundos-imobiliarios-com-rendimentos-acima-de-1325-ao-ano/",
+                        text = "my button"
+                    )
+                )
+            )
+        )
+
+        repeat((0..4).count()) {
+            contentList.add(
+                ContentDto(
+                    header = "Olaaaa infermeira",
+                    title = "Este eh a porra do titulo",
+                    description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                    image = "https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg",
+                    operators = listOf(
+                        OperatorDto(
+                            type = "button",
+                            actionType = "open detail",
+                            actionValue = "https://investnews.com.br/cafeina/19-fundos-imobiliarios-com-rendimentos-acima-de-1325-ao-ano/",
+                            text = "my button"
+                        )
+                    )
+                )
+            )
+        }
+
+        /*
+        contentWrapper = ContentWrapperDto(
+            urlJson = "https://www.projectconnect.com.br/send_notification/api/component/list/list.php",
+            containerTitle = "this is the title",
+            contentType = contentType,
+            contents = contentList
+        )
+        */
+
+        contentWrapper = ContentWrapperDto(
+            contentType = contentType,
+            contents = contentList,
+            layout = R.layout.item_custom
         )
     }
 }

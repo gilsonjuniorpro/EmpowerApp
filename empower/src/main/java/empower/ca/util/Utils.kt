@@ -15,8 +15,11 @@ fun extractContentType(contentType: String?): ContentType {
         "EMPOWER_VIEWTYPE_ADS" -> {
             ContentType.EMPOWER_VIEWTYPE_ADS
         }
-        else -> {
+        "EMPOWER_VIEWTYPE_EXPOSE" -> {
             ContentType.EMPOWER_VIEWTYPE_EXPOSE
+        }
+        else -> {
+            ContentType.EMPOWER_VIEWTYPE_CUSTOM
         }
     }
 }
@@ -32,8 +35,11 @@ fun contentTypeToString(contentType: ContentType): String {
         ContentType.EMPOWER_VIEWTYPE_ADS -> {
             "EMPOWER_VIEWTYPE_ADS"
         }
-        else -> {
+        ContentType.EMPOWER_VIEWTYPE_EXPOSE -> {
             "EMPOWER_VIEWTYPE_EXPOSE"
+        }
+        else -> {
+            "EMPOWER_VIEWTYPE_CUSTOM"
         }
     }
 }
@@ -49,8 +55,11 @@ fun getPower(contentType: String?): Power {
         "EMPOWER_VIEWTYPE_ADS" -> {
             Power.Ads
         }
-        else -> {
+        "EMPOWER_VIEWTYPE_EXPOSE" -> {
             Power.Expose
+        }
+        else -> {
+            Power.Custom
         }
     }
 }

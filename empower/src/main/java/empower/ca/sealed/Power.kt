@@ -18,6 +18,9 @@ sealed class Power : Parcelable {
     @Parcelize
     object Ads : Power()
 
+    @Parcelize
+    object Custom : Power()
+
     fun getTitle(what: Power): String {
         return when (what) {
             is Power.Ads -> {
@@ -31,6 +34,9 @@ sealed class Power : Parcelable {
             }
             is Power.Expose -> {
                 "This is the Expose"
+            }
+            is Power.Custom -> {
+                "This is the Custom"
             }
         }
     }
