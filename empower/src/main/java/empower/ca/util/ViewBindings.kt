@@ -200,10 +200,10 @@ fun loadData(view: ItemCustomBinding, content: ContentDto, itemView: View, conte
         .into(image)
 
     buttonOperator.setOnClickListener {
-        //openDetail(cardAds.context, content, url)
+        openDetail(view.cardCustom.context, content, url)
     }
     linkOperator.setOnClickListener {
-        //openDetail(cardAds.context, content, url)
+        openDetail(view.cardCustom.context, content, url)
     }
 }
 
