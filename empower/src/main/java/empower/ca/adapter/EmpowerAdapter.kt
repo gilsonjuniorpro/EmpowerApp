@@ -71,6 +71,8 @@ class EmpowerAdapter(private val power: Power?, private val contentWrapperDto: C
                         }
                     }
                 }
+
+                null -> print("Error")
             }
 
             if (power is Power.Expose) {
