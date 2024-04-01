@@ -13,6 +13,10 @@ import empower.ca.sealed.Power
 import empower.ca.util.URL_BASE
 import empower.ca.util.contentTypeToString
 
+//https://www.projectconnect.com.br/send_notification/api/component/list/list.php?type=EMPOWER_VIEWTYPE_BASIC
+//https://www.projectconnect.com.br/send_notification/api/component/list/list.php?type=EMPOWER_VIEWTYPE_BANNER
+//https://www.projectconnect.com.br/send_notification/api/component/list/list.php?type=EMPOWER_VIEWTYPE_ADS
+//https://www.projectconnect.com.br/send_notification/api/component/list/list.php?type=EMPOWER_VIEWTYPE_EXPOSE
 
 class MainActivity : AppCompatActivity() {
 
