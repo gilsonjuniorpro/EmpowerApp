@@ -51,6 +51,9 @@ fun loadData(view: ItemBasicBinding, content: ContentDto, itemView: View) {
     view.linkOperator.setOnClickListener {
         openDetail(view.cardBasic.context, content, url)
     }
+    view.cardBasic.setOnClickListener {
+        openDetail(view.cardBasic.context, content, url)
+    }
 }
 
 fun loadData(view: ItemBannerBinding, content: ContentDto, itemView: View) {
@@ -163,46 +166,51 @@ fun loadData(view: ItemAdsBinding, content: ContentDto, itemView: View) {
 
 fun loadData(view: ItemCustomBinding, content: ContentDto, itemView: View, contentWrapperDto: ContentWrapperDto?, layoutInflater: LayoutInflater) {
     view.cardCustom.visibility = View.VISIBLE
-    val myView = layoutInflater.inflate(contentWrapperDto?.layout!!, null)
+    val myView = contentWrapperDto?.layout?.let { layoutInflater.inflate(it, null) }
     view.cardCustom.addView(myView)
 
-    val image = myView.findViewById<ImageView>(R.id.image)
-    val header = myView.findViewById<TextView>(R.id.header)
-    val title = myView.findViewById<TextView>(R.id.title)
-    val description = myView.findViewById<TextView>(R.id.description)
-    val buttonOperator = myView.findViewById<Button>(R.id.button_operator)
-    val linkOperator = myView.findViewById<TextView>(R.id.link_operator)
+    val image = myView?.findViewById<ImageView>(R.id.image)
+    val header = myView?.findViewById<TextView>(R.id.header)
+    val title = myView?.findViewById<TextView>(R.id.title)
+    val description = myView?.findViewById<TextView>(R.id.description)
+    val buttonOperator = myView?.findViewById<Button>(R.id.button_operator)
+    val linkOperator = myView?.findViewById<TextView>(R.id.link_operator)
 
-    header.text = content.header
-    title.text = content.title
-    description.text = content.description
-    buttonOperator.visibility = View.GONE
-    linkOperator.visibility = View.GONE
+    header?.text = content.header
+    title?.text = content.title
+    description?.text = content.description
+    buttonOperator?.visibility = View.GONE
+    linkOperator?.visibility = View.GONE
 
     var url: String? = null
     for (op in content.operators) {
         if (op.type == "button") {
-            buttonOperator.text = op.text
-            buttonOperator.visibility = View.VISIBLE
+            buttonOperator?.text = op.text
+            buttonOperator?.visibility = View.VISIBLE
         }
         if (op.type == "link") {
-            linkOperator.text = op.text
-            linkOperator.visibility = View.VISIBLE
+            linkOperator?.text = op.text
+            linkOperator?.visibility = View.VISIBLE
             url = op.actionValue
         }
     }
 
-    Glide.with(itemView)
-        .load(content.image)
-        .centerCrop()
-        .transition(DrawableTransitionOptions.withCrossFade())
-        .error(R.drawable.marvel)
-        .into(image)
+    if (image != null) {
+        Glide.with(itemView)
+            .load(content.image)
+            .centerCrop()
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .error(R.drawable.marvel)
+            .into(image)
+    }
 
-    buttonOperator.setOnClickListener {
+    buttonOperator?.setOnClickListener {
         openDetail(view.cardCustom.context, content, url)
     }
-    linkOperator.setOnClickListener {
+    linkOperator?.setOnClickListener {
+        openDetail(view.cardCustom.context, content, url)
+    }
+    view.cardCustom.setOnClickListener {
         openDetail(view.cardCustom.context, content, url)
     }
 }

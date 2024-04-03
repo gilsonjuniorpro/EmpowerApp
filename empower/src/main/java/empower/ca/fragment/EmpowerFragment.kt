@@ -1,26 +1,22 @@
 package empower.ca.fragment
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
-import empower.ca.R
 import empower.ca.adapter.EmpowerAdapter
 import empower.ca.databinding.FragmentEmpowerBinding
 import empower.ca.dto.ContentDto
 import empower.ca.dto.ContentWrapperDto
-import empower.ca.enums.ContentType
 import empower.ca.repository.EmpowerRepository
 import empower.ca.sealed.Option
 import empower.ca.sealed.Power
-import empower.ca.util.URL_BASE
-import empower.ca.util.contentTypeToString
 import empower.ca.util.getOption
 import empower.ca.util.getPower
 import empower.ca.viewmodel.EmpowerViewModel
@@ -65,10 +61,14 @@ class EmpowerFragment : Fragment() {
             instanceHashCode = arguments?.getInt(INSTANCE_HASH_CODE) ?: 0
 
             var contentWrapper: ContentWrapperDto =
-                arguments?.getParcelable(EMPOWER_CONTENT_OBJECT) ?: ContentWrapperDto()
+                if (Build.VERSION.SDK_INT >= 33) {
+                    arguments?.getParcelable(EMPOWER_CONTENT_OBJECT, ContentWrapperDto::class.java) ?: ContentWrapperDto()
+                } else {
+                    arguments?.getParcelable(EMPOWER_CONTENT_OBJECT) ?: ContentWrapperDto() ?: ContentWrapperDto()
+                }
 
             if(contentWrapper.urlJson != null){
-                val url = "${contentWrapper.urlJson!!}${contentWrapper.contentType}"
+                val url = "${contentWrapper.urlJson}${contentWrapper.contentType}"
                 viewModel.getJson(url)
             }else{
                 viewModel.setContentWrapperState(contentWrapper)
@@ -82,7 +82,7 @@ class EmpowerFragment : Fragment() {
 
                     is EmpowerViewModel.State.Loaded -> {
                         binding.loading.loadindContainer.visibility = View.GONE
-                        contentWrapper = state.contentWrapperDto ?: ContentWrapperDto()
+                        contentWrapper.contents = state.contentWrapperDto?.contents ?: ArrayList()
 
                         //option = arguments?.getParcelable<Option.Container>(EMPOWER_OPTION_OBJECT)
                         option = getOption(contentWrapper.containerTitle)

@@ -99,13 +99,23 @@ class MainActivity : AppCompatActivity() {
             loadDataWithParams(Power.Expose, container)
         }
 
-        findViewById<Button>(R.id.bt_load_custom).setOnClickListener {
+        /*findViewById<Button>(R.id.bt_load_custom).setOnClickListener {
             populateCustom(contentTypeToString(ContentType.EMPOWER_VIEWTYPE_CUSTOM))
             val container = Option.Container(
                 "",
                 ""
             )
             loadDataWithParams(Power.Custom, container)
+        }*/
+
+        findViewById<Button>(R.id.bt_load_custom).setOnClickListener {
+            contentWrapper = ContentWrapperDto(
+                urlJson = URL_BASE,
+                containerTitle = "this is the title CUSTOM",
+                contentType = contentTypeToString(ContentType.EMPOWER_VIEWTYPE_CUSTOM),
+                layout = R.layout.item_custom_client
+            )
+            loadDataFromUrl(contentWrapper)
         }
     }
 
